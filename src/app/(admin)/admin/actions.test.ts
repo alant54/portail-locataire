@@ -21,7 +21,9 @@ process.env.DATABASE_URL = path.join(dir, "admin.db");
 vi.mock("next/cache", () => ({ revalidatePath: () => {} }));
 
 const session = vi.hoisted(() => ({ isManager: true }));
-vi.mock("../../../tickets/guard", () => ({ sessionIsManager: () => session.isManager }));
+vi.mock("../../../tickets/guard", () => ({
+  sessionIsManager: async () => session.isManager,
+}));
 
 const { db } = await import("../../../db/client");
 const { syncRuns } = await import("../../../db/schema");

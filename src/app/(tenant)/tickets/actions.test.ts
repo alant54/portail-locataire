@@ -45,7 +45,7 @@ function redirectTarget(error: unknown): string | null {
 }
 
 test("creating a request stores the session's references and redirects to the detail", async () => {
-  const session = getCurrentTenant()!;
+  const session = (await getCurrentTenant())!;
   expect(session).not.toBeNull();
 
   const submitted = form({

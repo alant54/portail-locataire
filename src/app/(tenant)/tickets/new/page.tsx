@@ -7,8 +7,8 @@ import { NewTicketForm } from "./form";
 
 export const dynamic = "force-dynamic";
 
-export default function NouvelleDemandePage() {
-  const tenant = getCurrentTenant();
+export default async function NouvelleDemandePage() {
+  const tenant = await getCurrentTenant();
   if (!tenant) notFound();
 
   return (

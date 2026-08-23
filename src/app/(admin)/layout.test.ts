@@ -10,7 +10,9 @@ import { expect, test, vi } from "vitest";
 import type { SessionUser } from "../../contracts";
 
 const currentUser = vi.hoisted(() => ({ value: null as SessionUser | null }));
-vi.mock("../../auth/current-user", () => ({ getCurrentUser: () => currentUser.value }));
+vi.mock("../../auth/current-user", () => ({
+  getCurrentUser: async () => currentUser.value,
+}));
 
 const { default: AdminLayout } = await import("./layout");
 
@@ -27,11 +29,14 @@ const tenant: SessionUser = {
   tenantRef: "TEN-00005",
 };
 
-/** What `notFound()` throws, and what a redirect would have thrown instead. */
-function outcomeOf(user: SessionUser | null): "rendered" | "not-found" | string {
+/**
+ * What `notFound()` throws, and what a redirect would have thrown instead. The layout is
+ * async — the session is a cookie — so the refusal arrives as a rejected promise.
+ */
+async function outcomeOf(user: SessionUser | null): Promise<"rendered" | "not-found" | string> {
   currentUser.value = user;
   try {
-    AdminLayout({ children: null });
+    await AdminLayout({ children: null });
     return "rendered";
   } catch (error) {
     const digest = String((error as { digest?: string }).digest ?? error);
@@ -40,20 +45,20 @@ function outcomeOf(user: SessionUser | null): "rendered" | "not-found" | string 
   }
 }
 
-test("a manager reaches the management area", () => {
-  expect(outcomeOf(manager)).toBe("rendered");
+test("a manager reaches the management area", async () => {
+  expect(await outcomeOf(manager)).toBe("rendered");
 });
 
-test("a signed-in tenant gets 404, not a redirect", () => {
-  expect(outcomeOf(tenant)).toBe("not-found");
+test("a signed-in tenant gets 404, not a redirect", async () => {
+  expect(await outcomeOf(tenant)).toBe("not-found");
 });
 
-test("an anonymous or expired session gets 404", () => {
-  expect(outcomeOf(null)).toBe("not-found");
+test("an anonymous or expired session gets 404", async () => {
+  expect(await outcomeOf(null)).toBe("not-found");
 });
 
-test("a role the schema does not know is refused too", () => {
+test("a role the schema does not know is refused too", async () => {
   // Defensive: the gate admits `manager` rather than refusing `tenant`, so a future
   // role (auditor, concierge…) is locked out by default instead of let in.
-  expect(outcomeOf({ ...tenant, role: "auditor" as SessionUser["role"] })).toBe("not-found");
+  expect(await outcomeOf({ ...tenant, role: "auditor" as SessionUser["role"] })).toBe("not-found");
 });

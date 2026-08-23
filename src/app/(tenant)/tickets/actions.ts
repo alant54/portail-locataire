@@ -28,7 +28,7 @@ export async function createTicketAction(
     body: String(formData.get("body") ?? ""),
   };
 
-  const tenant = getCurrentTenant();
+  const tenant = await getCurrentTenant();
   if (!tenant) {
     return {
       errors: [
@@ -50,7 +50,7 @@ export async function addTenantCommentAction(
   _previous: MessageFormState,
   formData: FormData,
 ): Promise<MessageFormState> {
-  const tenant = getCurrentTenant();
+  const tenant = await getCurrentTenant();
   if (!tenant) return { error: "Votre session a expiré. Reconnectez-vous pour commenter." };
 
   const ticketId = String(formData.get("ticketId") ?? "");

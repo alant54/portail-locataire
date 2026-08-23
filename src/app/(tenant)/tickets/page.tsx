@@ -17,8 +17,8 @@ import styles from "../../../tickets/ui.module.css";
 
 export const dynamic = "force-dynamic";
 
-export default function DemandesPage() {
-  const tenant = getCurrentTenant();
+export default async function DemandesPage() {
+  const tenant = await getCurrentTenant();
   // Lane B's (tenant) layout turns anonymous visitors away before this renders; if it
   // ever does not, showing nothing is the safe failure.
   if (!tenant) notFound();

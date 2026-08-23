@@ -18,15 +18,15 @@ import { STATUSES, type TicketStatus } from "../../../tickets/labels";
 import { addComment, setStatus } from "../../../tickets/service";
 import { runIncrementalSync } from "../../../sync/index";
 
-function requireManager() {
-  if (!sessionIsManager()) notFound();
+async function requireManager() {
+  if (!(await sessionIsManager())) notFound();
 }
 
 export async function setTicketStatusAction(
   _previous: MessageFormState,
   formData: FormData,
 ): Promise<MessageFormState> {
-  requireManager();
+  await requireManager();
 
   const ticketId = String(formData.get("ticketId") ?? "");
   const status = String(formData.get("status") ?? "") as TicketStatus;
@@ -44,7 +44,7 @@ export async function addManagerCommentAction(
   _previous: MessageFormState,
   formData: FormData,
 ): Promise<MessageFormState> {
-  requireManager();
+  await requireManager();
 
   const ticketId = String(formData.get("ticketId") ?? "");
   const body = String(formData.get("body") ?? "");
@@ -64,7 +64,7 @@ export async function addManagerCommentAction(
  * in `sync_runs` with its error, and the screen shows it.
  */
 export async function runSyncAction(_previous: MessageFormState): Promise<MessageFormState> {
-  requireManager();
+  await requireManager();
 
   try {
     const summary = await runIncrementalSync();

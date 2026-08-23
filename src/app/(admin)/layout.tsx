@@ -23,8 +23,8 @@ const SCREENS = [
   { href: "/admin/sync", label: "Synchronisation" },
 ];
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  if (!sessionIsManager()) notFound();
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  if (!(await sessionIsManager())) notFound();
 
   return (
     <>
