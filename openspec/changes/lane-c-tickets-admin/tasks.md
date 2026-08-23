@@ -18,4 +18,4 @@
 
 ## 4. Integration
 
-- [ ] 4.1 After merge with lanes A and B, run the demo path: login → create request → admin changes status → tenant sees it → relaunch sync; verify each step and note any gap in `docs/PLAN.md`
+- [x] 4.1 After merge with lanes A and B, run the demo path: login → create request → admin changes status → tenant sees it → relaunch sync; verify each step and note any gap in `docs/PLAN.md`

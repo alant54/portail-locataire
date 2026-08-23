@@ -131,6 +131,14 @@ Owns: `src/tickets/**`, `src/app/(tenant)/tickets/**`, `src/app/(admin)/**`.
 ### Phase 2 — Integration
 Merge A → B → C into main, run `setup`, click through the demo script (login → dashboard → create ticket → admin sees it → re-run sync → no duplicates → isolation test). Fix only what blocks the demo.
 
+**Run of 2026-08-23 (lanes A + B + C, `next dev` on a throwaway `DATABASE_URL`, 24 checks).** Passed end to end: login as `lea.martin@example.ch` → dashboard → create a request (a `tenant_ref`/`lease_ref` planted in the POST body is ignored; the row carries the session's refs) → redirect to the detail → manager logs in, sees it in the inbox with its tenant, moves it to *En cours* and answers → the tenant's own page shows both → `adrien.clerc@example.ch` gets 404 on that request id and never sees it in their list → tenant and anonymous get 404 on all four `/admin` routes and are not offered the "Gérance" link → the logins screen shows both sign-ins and a failed attempt on an unknown address.
+
+Gaps found, none blocking the demo:
+- **"Relancer la synchro" cannot succeed outside `wt-a`.** `.env.local` lives there only, so the run is recorded as `failed` with `ERP_API and ERP_PUBLISHABLE_KEY must be set` and the cursor does not move — the screen renders that as a normal outcome. Demoing the successful path means copying `.env.local` next to the checkout that serves the demo.
+- **`sync_runs` has no row until something runs.** After a bare `npm run setup` the sync screen is empty by design; the demo should run `npm run sync:full` first, which is also what stops the first incremental sync from replaying all 20 665 events.
+- **The header carries a logout form.** Any script that drives the app without JavaScript must target forms by a field they contain — posting "the first form on the page" signs the caller out.
+- **Two `next dev` servers on one port fail silently apart from the log.** The second exits with `EADDRINUSE` while the first keeps answering, so a demo run can silently exercise the wrong database; check the log says `Ready` before trusting a click-through.
+
 ### Phase 3 — Report + cuts
 Write the report; every cut item goes in as an explicit decision.
 

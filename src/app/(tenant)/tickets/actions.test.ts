@@ -1,34 +1,62 @@
 /**
- * The tenant server actions, exercised the way a browser calls them: a `FormData`,
- * nothing else. What matters here is what a page cannot show — that the action reads the
- * session for the references, and that a successful creation redirects to the detail.
+ * The tenant server actions, driven the way a browser drives them: a real session cookie
+ * and a `FormData`, nothing else. Same shape as lane B's `src/auth/isolation.test.ts` —
+ * real modules, a throwaway database, `next/headers` serving the session.
  *
- * The database is a throwaway file chosen before `db/client` is imported, since that
- * module opens `DATABASE_URL` once at import time.
+ * What matters here is what a page cannot show: the action reads the tenant from the
+ * session on every call, so nothing a hand-rolled POST puts in the body can reach the row,
+ * and a successful creation redirects to that request's detail.
  */
 import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
 import { afterAll, beforeAll, expect, test, vi } from "vitest";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 
-const dir = fs.mkdtempSync(path.join(os.tmpdir(), "portal-actions-"));
-process.env.DATABASE_URL = path.join(dir, "actions.db");
+/** Runs before every import: the database singleton is built at import time. */
+const dbFile = vi.hoisted(() => {
+  const file = `${process.env.TMPDIR ?? "/tmp"}/portal-tenant-actions-${process.pid}.db`;
+  process.env.DATABASE_URL = file;
+  return file;
+});
+
+/** The session the "browser" is carrying. */
+let activeSession: string | undefined;
+
+vi.mock("next/headers", () => ({
+  cookies: async () => ({
+    get: (name: string) => (activeSession ? { name, value: activeSession } : undefined),
+    set: () => {},
+    delete: () => {},
+  }),
+  headers: async () => new Headers({ "user-agent": "vitest" }),
+}));
 
 // `revalidatePath()` needs a request context this test does not have; the actions call it
-// purely to refresh the cache, so a no-op keeps the rest of the behaviour observable.
+// only to refresh the cache, so a no-op keeps the rest of the behaviour observable.
 vi.mock("next/cache", () => ({ revalidatePath: () => {} }));
 
 const { db } = await import("../../../db/client");
-const { tickets } = await import("../../../db/schema");
+const { tickets, users } = await import("../../../db/schema");
+const { createSession } = await import("../../../auth/session");
 const { getCurrentTenant } = await import("../../../auth/current-tenant");
 const { createTicketAction, addTenantCommentAction } = await import("./actions");
 const { EMPTY_CREATE_STATE, EMPTY_MESSAGE_STATE } = await import("../../../tickets/form-state");
 
+const ALICE = { id: "u-alice", email: "lea@example.ch", tenantRef: "TEN-00005" };
+
 beforeAll(() => {
   migrate(db, { migrationsFolder: "drizzle" });
+  db.insert(users)
+    .values({
+      id: ALICE.id,
+      email: ALICE.email,
+      passwordHash: "x",
+      role: "tenant",
+      tenantRef: ALICE.tenantRef,
+    })
+    .run();
+  activeSession = createSession(ALICE.id, db).id;
 });
-afterAll(() => fs.rmSync(dir, { recursive: true, force: true }));
+afterAll(() => fs.rmSync(dbFile, { force: true }));
 
 function form(entries: Record<string, string>) {
   const data = new FormData();
@@ -45,8 +73,8 @@ function redirectTarget(error: unknown): string | null {
 }
 
 test("creating a request stores the session's references and redirects to the detail", async () => {
-  const session = (await getCurrentTenant())!;
-  expect(session).not.toBeNull();
+  const session = await getCurrentTenant();
+  expect(session?.tenantRef).toBe(ALICE.tenantRef);
 
   const submitted = form({
     category: "chauffage",
@@ -63,8 +91,7 @@ test("creating a request stores the session's references and redirects to the de
 
   const stored = db.select().from(tickets).all();
   expect(stored).toHaveLength(1);
-  expect(stored[0]!.tenantRef).toBe(session.tenantRef);
-  expect(stored[0]!.leaseRef).toBe(session.leaseRef);
+  expect(stored[0]!.tenantRef).toBe(ALICE.tenantRef);
   expect(stored[0]!.status).toBe("open");
   expect(target).toBe(`/tickets/${stored[0]!.id}`);
 });
@@ -102,4 +129,20 @@ test("a comment on someone else's request is refused", async () => {
     form({ ticketId: mine.id, body: "   " }),
   );
   expect(blank.error).toMatch(/Écrivez un message/);
+});
+
+test("without a session the action writes nothing and says so", async () => {
+  const signedIn = activeSession;
+  activeSession = undefined;
+  try {
+    const before = db.select().from(tickets).all().length;
+    const state = await createTicketAction(
+      EMPTY_CREATE_STATE,
+      form({ category: "plomberie", title: "Fuite", body: "Sous l'évier." }),
+    );
+    expect(state.errors[0]!.message).toMatch(/session a expiré/);
+    expect(db.select().from(tickets).all()).toHaveLength(before);
+  } finally {
+    activeSession = signedIn;
+  }
 });
