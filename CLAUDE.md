@@ -7,7 +7,7 @@ Tenant portal over a **read-only** property-management ERP (fictive data, CHF, V
 | Command | Description |
 |---------|-------------|
 | `npm install` | Install dependencies (`better-sqlite3` needs `build-essential`, present in devcontainer) |
-| `npm run setup` | `db:migrate` + `seed:fixtures` (+ `seed-demo` after lane B) |
+| `npm run setup` | `db:migrate` + `seed:fixtures` + `seed:demo` (the last is a no-op stub until lane B lands) |
 | `npm run dev` | Next.js on port 5173 (the forwarded port) |
 | `npm test` | vitest — every suite gets its own DB via `src/db/test-db.ts`, never `data/app.db` |
 | `npm run typecheck` | `tsc --noEmit` |
@@ -78,7 +78,7 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 
 ## Workflow
 
-- OpenSpec drives the work: `/opsx:apply phase-0-foundation` first (serial, **applied 2026-08-23**), then lanes A/B/C in parallel, one agent per git worktree, then delivery (README + report with cuts).
+- OpenSpec drives the work: phase 0 is **applied and archived** (`phase-0-foundation`, `phase-0-hardening` — see `openspec/changes/archive/`). Lanes A/B/C run next in parallel, one agent per git worktree, then delivery (README + report with cuts).
 - Worktrees live at `/home/vscode/wt-a|b|c` (`/` is not writable, so `../wt-a` fails). Each needs its own `npm install` — `node_modules` is not shared.
 - Only one `next dev` can hold port 5173: lane A `npm run dev -- -p 5174`, lane B 5173, lane C 5175.
 - Ownership settled in `phase-0-hardening` — nobody edits a shared file: `(tenant)/layout.tsx` is lane B's session gate, `(admin)/layout.tsx` is lane C's **manager gate** (404, not a redirect), and the frozen nav exposes exactly one edit point, `#session-slot`, which lane B fills from its own component.
@@ -89,12 +89,19 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 
 ## Gotchas
 
-- `/workspace` is not a git repo until Phase 0 task 1.1; worktrees need it.
+- Main specs live in `openspec/specs/` (populated by archiving); validate them with `openspec validate --specs`. Lanes' delta specs diff against that baseline.
 - `docs/API.txt` once contained live keys — keys were moved to `.env.local`; keep it that way.
 - `meter-readings` (90 k) is the collection to cap for the demo (`SYNC_MAX_ROWS_PER_COLLECTION`) — nothing on the dashboard uses it. Do **not** cap `tenant-account-entries` (161 k) even though it is bigger: the balance needs every row.
 - Fixture tenants (B2): `TEN-00005`, `TEN-00010`, `TEN-00170`, `TEN-00340` — active lease, a co-tenant on the lease, upcoming maintenance, mixed entry statuses.
 - A tenant can be `co_tenant`, not only `primary_payer`: resolve "my lease" through `lease_parties`, never through `leases.primary_rental_unit_id` alone.
 - `openspec validate` takes the change name positionally (`openspec validate <name> --strict`), not `--change`.
+- `pkill -f 'next dev'` **kills its own shell** (the pattern matches the pkill command line): use `pkill -f 'next[ ]dev'`.
+- Deleting or moving a page leaves stale generated types: `rm -rf .next` before trusting a `tsc` error that names a file you removed. Route groups also cannot collide with `src/app/page.tsx` — `/` lives in `(tenant)/page.tsx`.
+- Raw SQL bypasses Drizzle's column mappers and better-sqlite3 cannot bind a JS boolean — run values through `column.mapToDriverValue()` (see `src/db/upsert.ts`).
+- Verify secrets by grepping tracked files for the real `.env.local` **values**, not a key prefix — a prefix string matches the docs that mention it and passes vacuously.
+- `DATABASE_URL=/tmp/x.db npm run setup` exercises the scripts against a throwaway database — never test against `data/app.db`.
+- `tsx -e` cannot run top-level `await` ("cjs output format"): write a temp `.ts` file instead.
+- `npm install` in a worktree dirties `package-lock.json`; `git checkout -- package-lock.json` before merging or the noise lands in the integration diff.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
