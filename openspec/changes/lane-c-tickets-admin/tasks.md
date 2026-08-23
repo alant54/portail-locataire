@@ -1,5 +1,6 @@
 ## 1. Ticket domain
 
+- [ ] 1.0 Land the role seam on `main` (shared files are never edited from a lane worktree): `SessionUser` in `src/contracts.ts`, `getCurrentUser()` stub in `src/auth/current-user.ts`, coverage in `src/contracts.test.ts`, and the manager-only "Gérance" link in the frozen `src/app/layout.tsx`; then merge `main` into `lane-c`; verify `npm test` and `npm run typecheck` pass on both `main` and the worktree
 - [ ] 1.1 Confirm the portal tables on `main` — `ticket_comments.kind` (comment|status) and `.author_kind` are present as of phase 0, as are `login_events.email`/`.outcome` and `sync_runs.cursor_before`/`.cursor_after`; verify `npm run db:migrate` applies cleanly and no schema tweak is needed
 - [ ] 1.2 Implement `src/tickets/service.ts` (`createTicket`, `listForTenant`, `getForTenant`, `addComment`, `listAll`, `setStatus`); verify vitest covers create, forged reference ignored, foreign ticket returns null, status transition recorded as timeline entry
 

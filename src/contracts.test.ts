@@ -4,8 +4,13 @@
  */
 import { afterAll, beforeAll, expect, test } from "vitest";
 import { createTestDb, type TestDb } from "./db/test-db.js";
-import { CURRENT_TENANT_FIELDS, SYNC_RUN_SUMMARY_FIELDS } from "./contracts.js";
+import {
+  CURRENT_TENANT_FIELDS,
+  SESSION_USER_FIELDS,
+  SYNC_RUN_SUMMARY_FIELDS,
+} from "./contracts.js";
 import { getCurrentTenant } from "./auth/current-tenant.js";
+import { getCurrentUser } from "./auth/current-user.js";
 import { runIncrementalSync } from "./sync/index.js";
 import { syncRuns } from "./db/schema.js";
 
@@ -23,6 +28,37 @@ test("getCurrentTenant() returns every field of CurrentTenant", () => {
   expect(tenant!.tenantRef).toMatch(/^TEN-/);
   expect(tenant!.leaseRef).toMatch(/^BAIL-/);
   expect(tenant!.unitRef).toMatch(/^APT-/);
+});
+
+test("getCurrentUser() returns every field of SessionUser", () => {
+  const user = getCurrentUser();
+  expect(user).not.toBeNull();
+  for (const field of SESSION_USER_FIELDS) {
+    expect(Object.keys(user!), `missing ${field}`).toContain(field);
+  }
+  expect(typeof user!.userId).toBe("string");
+  expect(typeof user!.email).toBe("string");
+  expect(["tenant", "manager"]).toContain(user!.role);
+});
+
+/**
+ * The role seam only earns its keep if it can also say "not a manager" and
+ * "nobody" — the two answers lane C's 404 gate is built on.
+ */
+test("getCurrentUser() can return a tenant and an absent session", () => {
+  const previous = process.env.PORTAL_STUB_ROLE;
+  try {
+    process.env.PORTAL_STUB_ROLE = "tenant";
+    const tenant = getCurrentUser();
+    expect(tenant?.role).toBe("tenant");
+    expect(tenant?.tenantRef).toMatch(/^TEN-/);
+
+    process.env.PORTAL_STUB_ROLE = "anonymous";
+    expect(getCurrentUser()).toBeNull();
+  } finally {
+    if (previous === undefined) delete process.env.PORTAL_STUB_ROLE;
+    else process.env.PORTAL_STUB_ROLE = previous;
+  }
 });
 
 /**

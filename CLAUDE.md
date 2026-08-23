@@ -24,7 +24,7 @@ Tenant portal over a **read-only** property-management ERP (fictive data, CHF, V
 src/app/(tenant)/   # tenant pages — lane B (tickets/ subfolder is lane C)
 src/app/(admin)/    # management screens — lane C
 src/auth/           # sessions, getCurrentTenant() — lane B
-src/contracts.ts    # FROZEN cross-lane shapes: CurrentTenant, SyncRunSummary
+src/contracts.ts    # FROZEN cross-lane shapes: CurrentTenant, SessionUser, SyncRunSummary
 src/db/             # schema.ts (FROZEN), client, upsert, test-db, tenant-queries.ts
 src/erp/            # types.ts (FROZEN), client — lane A
 src/sync/           # full import, incremental, registry — lane A
@@ -40,7 +40,7 @@ openspec/changes/   # phase-0-foundation, lane-a-erp-sync, lane-b-auth-tenant, l
 - `docs/PLAN.md` - work split, verified ERP facts, data model, timeline, open questions
 - `docs/erp/openapi.json` - ERP contract snapshot (no `components.schemas`; types come from sample records)
 - `src/db/schema.ts`, `src/erp/types.ts`, `src/contracts.ts` - frozen contracts; change only on `main`, then merge into all lane worktrees. **The dependency list in `package.json` is frozen the same way**: a lane that needs a package asks on `main` instead of running `npm install` in its worktree.
-- `src/auth/current-tenant.ts`, `src/sync/index.ts` - cross-lane interfaces (`getCurrentTenant(): CurrentTenant | null`, `runIncrementalSync(): Promise<SyncRunSummary>`); lanes replace bodies, never signatures. `src/contracts.test.ts` fails if a lane narrows either shape.
+- `src/auth/current-tenant.ts`, `src/auth/current-user.ts`, `src/sync/index.ts` - cross-lane interfaces (`getCurrentTenant(): CurrentTenant | null`, `getCurrentUser(): SessionUser | null`, `runIncrementalSync(): Promise<SyncRunSummary>`); lanes replace bodies, never signatures. `src/contracts.test.ts` fails if a lane narrows any of the three shapes. `getCurrentUser()` is the **role** seam: `CurrentTenant` has no role and a manager has no `tenant_ref`, so the management gate cannot be built on `getCurrentTenant()`. Its stub answers `manager`; `PORTAL_STUB_ROLE=tenant|anonymous` switches it for manual checks until lane B lands.
 - `src/db/test-db.ts` - every test opens its own migrated database (`createTestDb({ seed })`); nothing in `npm test` may touch `data/app.db`.
 
 ## Environment

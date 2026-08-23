@@ -15,10 +15,11 @@ Checklist items #2 and #5: the tenant must perform one real action that writes t
 - `management-screens`: managers see logins, handle the request inbox and monitor/relaunch the sync.
 
 ### Modified Capabilities
-- none
+- `cross-lane-interfaces`: adds a third seam, `getCurrentUser(): SessionUser | null`, because the management gate needs a role and `CurrentTenant` deliberately carries none. Landed on `main` with the frozen shape and a stub, then merged into every worktree; lane B replaces the body.
 
 ## Impact
 
 - Owns `src/tickets/**`, `src/app/(tenant)/tickets/**`, `src/app/(admin)/**`.
 - Writes `tickets`, `ticket_comments`; reads `login_events`, `sync_runs`, `sync_cursor`, mirror table counts.
-- Calls `runIncrementalSync()` from lane A (stub until merged) and `getCurrentTenant()` from lane B (stub until merged).
+- Calls `runIncrementalSync()` and `listRecentSyncRuns()` from lane A (real: lane A is merged) and `getCurrentTenant()` / `getCurrentUser()` from lane B (stubs until merged).
+- Shared files changed on `main`, not from this lane: `src/contracts.ts` (+`SessionUser`), `src/auth/current-user.ts` (new stub), `src/contracts.test.ts`, and `src/app/layout.tsx` — the nav shows "Gérance" only to a manager, so the frozen header no longer discloses the area the gate 404s.

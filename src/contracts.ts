@@ -44,3 +44,20 @@ export const SYNC_RUN_SUMMARY_FIELDS = [
   "cursorAfter",
   "status",
 ] as const;
+
+/**
+ * Who is signed in, resolved from the session and nothing else.
+ *
+ * The third seam, added for lane C: `CurrentTenant` deliberately carries no role, so it
+ * cannot answer "may this caller see the management area". `tenantRef` is null for a
+ * manager — exactly like `users.tenant_ref` in the schema.
+ */
+export interface SessionUser {
+  userId: string;
+  email: string;
+  role: "tenant" | "manager";
+  tenantRef: string | null;
+}
+
+/** Every field of `SessionUser`, for the contract test. */
+export const SESSION_USER_FIELDS = ["userId", "email", "role", "tenantRef"] as const;
