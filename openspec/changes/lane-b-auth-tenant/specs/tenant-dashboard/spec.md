@@ -30,8 +30,8 @@ The dashboard SHALL show the next due account entry and the next planned mainten
 - **THEN** its date and description are shown
 
 ### Requirement: Archived ERP rows are hidden
-Mirror rows marked archived SHALL not appear on the dashboard.
+Mirror rows archived by the ERP (`archived_at`) or deleted by the sync (`deleted_at`) SHALL not appear on the dashboard.
 
 #### Scenario: Archived entry
-- **WHEN** an account entry of the tenant is archived by the sync
+- **WHEN** an account entry of the tenant is archived or deleted by the sync
 - **THEN** it is not listed and not counted in the balance

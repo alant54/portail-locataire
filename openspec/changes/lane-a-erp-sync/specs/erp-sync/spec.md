@@ -16,7 +16,7 @@ The system SHALL import every mirrored collection page by page until the ERP rep
 - **THEN** patrimoine collections are written before parties and leases, which are written before rent terms, entries, meters and maintenance
 
 ### Requirement: Incremental sync replays change events from a cursor
-The system SHALL keep the largest processed `change_id` in the local database and request `sync-events` strictly after it. For `upsert` events the local row SHALL be refreshed from the ERP; for `delete` events the local row SHALL be marked archived locally without calling the ERP for writes. The cursor SHALL advance only after the batch has been committed.
+The system SHALL keep the largest processed `change_id` in the local database and request `sync-events` strictly after it. For `upsert` events the local row SHALL be refreshed from the ERP; for `delete` events the local row SHALL be marked deleted locally by setting `deleted_at`, without calling the ERP for writes and without removing the row. The cursor SHALL advance only after the batch has been committed.
 
 #### Scenario: Nothing new
 - **WHEN** incremental sync runs and the ERP returns no events after the cursor
@@ -28,7 +28,7 @@ The system SHALL keep the largest processed `change_id` in the local database an
 
 #### Scenario: Delete event
 - **WHEN** an event with operation `delete` is processed for a known entity
-- **THEN** the local row is marked archived and the ERP receives no write request
+- **THEN** the local row still exists with `deleted_at` set and the ERP receives no write request
 
 #### Scenario: Batch failure
 - **WHEN** applying a batch of events fails midway

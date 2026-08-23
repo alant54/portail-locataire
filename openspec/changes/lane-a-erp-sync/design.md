@@ -14,7 +14,7 @@ Schema, `upsert.ts` helper and types come from `phase-0-foundation`. ERP facts v
 - **Batch = one ERP page (≤500 events) = one SQLite transaction**, cursor update inside the same transaction. Alternative: per-event commits — slower and allows a half-applied page.
 - **Entity type → table map** in one module (`src/sync/registry.ts`) listing, per collection: ERP path, table, detail-endpoint availability, import order rank. Full import and incremental sync both iterate this map.
 - **Client**: `fetch` with `apikey` + `Authorization` headers, 3 retries with backoff on 429/5xx, timeout 30 s. No SDK.
-- **Soft delete** via `archived_at` — tenant queries (lane B) filter `archived_at IS NULL`.
+- **Soft delete** via the portal-owned `deleted_at`, present on every mirror table — the ERP's own `archived_at` exists on only 7 of the 15 collections, so it cannot carry deletes. Tenant queries (lane B) filter `archived_at IS NULL AND deleted_at IS NULL`.
 
 ## Risks / Trade-offs
 

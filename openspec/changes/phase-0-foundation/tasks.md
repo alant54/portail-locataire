@@ -23,10 +23,10 @@
 - [x] 4.2 Add `src/auth/current-tenant.ts` stub (`getCurrentTenant(): CurrentTenant | null`, returning the first fixture tenant, `null` never produced by the stub) and `src/sync/index.ts` stub (`runIncrementalSync(): Promise<SyncRunSummary>` returning a well-formed ok summary with `eventsApplied: 0` and an unchanged cursor); verify both are imported by a placeholder page without type errors
 - [x] 4.3 Add the contract test (`src/contracts.test.ts`): assert both stubs return every field of their frozen shape with the right type, so a lane that narrows a return value fails `npm test`; verify it passes against the stubs and fails when a field is deleted
 - [x] 4.4 Add shared layout with nav (Mon logement · Mes demandes · Gérance) and empty route groups `(tenant)` and `(admin)`; verify all three routes render
-- [ ] 4.5 Add `npm run setup` = `db:migrate` + `seed:fixtures`; verify a fresh clone runs `npm i && npm run setup && npm run dev` successfully
+- [x] 4.5 Add `npm run setup` = `db:migrate` + `seed:fixtures`; verify a fresh clone runs `npm i && npm run setup && npm run dev` successfully
 
 ## 5. Hand-off
 
 - [ ] 5.1 Commit on `main`, create branches + worktrees `lane-a`, `lane-b`, `lane-c`; verify `git worktree list` shows three entries
-- [ ] 5.2 Update `docs/PLAN.md` §7 with resolved open questions (A2 sizes, B2 chosen demo tenants); verify the file reflects the decisions
-- [ ] 5.3 Record the frozen surface in `CLAUDE.md`: `src/contracts.ts`, `schema.ts`, `erp/types.ts` and the dependency list change on `main` only, and every lane test goes through `src/db/test-db.ts`; verify each lane's `tasks.md` is consistent with it
+- [x] 5.2 Update `docs/PLAN.md` §7 with resolved open questions (A2 sizes, B2 chosen demo tenants); verify the file reflects the decisions
+- [x] 5.3 Record the frozen surface in `CLAUDE.md`: `src/contracts.ts`, `schema.ts`, `erp/types.ts` and the dependency list change on `main` only, and every lane test goes through `src/db/test-db.ts`; verify each lane's `tasks.md` is consistent with it
