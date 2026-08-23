@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { getCurrentUser } from "../auth/current-user";
+import { SessionControl } from "../auth/session-control";
 import "./globals.css";
 
 export const metadata = {
@@ -36,8 +37,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               <Link href="/tickets">Mes demandes</Link>
               {isManager && <Link href="/admin">Gérance</Link>}
             </nav>
-            {/* Lane B's login/logout control mounts here. Left empty on purpose. */}
-            <div id="session-slot" />
+            {/* The one sanctioned edit point: lane B's control, from lane B's own file. */}
+            <div id="session-slot">
+              <SessionControl />
+            </div>
           </div>
         </header>
         <main className="page">{children}</main>

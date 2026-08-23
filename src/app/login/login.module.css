@@ -1,0 +1,19 @@
+.wrap { max-width: 380px; margin: 40px auto; }
+.field { display: block; margin-bottom: 14px; }
+.field span { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+.field input {
+  width: 100%; padding: 9px 11px; font: inherit;
+  border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink);
+}
+.field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.submit {
+  width: 100%; padding: 10px 14px; font: inherit; font-weight: 550; cursor: pointer;
+  border: 0; border-radius: 7px; background: var(--accent); color: #fff;
+}
+.submit[disabled] { opacity: 0.6; cursor: progress; }
+.error {
+  margin: 0 0 14px; padding: 9px 11px; border-radius: 7px;
+  background: #fdecec; border: 1px solid #f3c9c9; color: #8a2020; font-size: 0.9rem;
+}
+.hint { margin-top: 18px; font-size: 0.85rem; color: var(--muted); }
+.hint code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }

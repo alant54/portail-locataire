@@ -112,10 +112,11 @@ Owns: `src/erp/**`, `src/sync/**`, `scripts/sync.ts`, `npm run sync`, `npm run s
 #### Lane B — auth + tenant product
 Owns: `src/auth/**`, `src/app/(tenant)/**` (except `tickets/`), `src/db/tenant-queries.ts`, `scripts/seed-demo.ts`.
 - Email + password login (hashed), cookie session, `login_events` insert on success.
-- Demo seeder: 2 tenant users (e.g. `TEN-00001`, `TEN-00002`) + 1 manager user, credentials in README.
+- Demo seeder: 3 tenant users (`TEN-00005`, `TEN-00170`, and co-tenant `TEN-06002`) + 1 manager user, credentials in README.
 - Real `getCurrentTenant()` from session.
 - Dashboard "in 10 seconds": my unit + address, my lease (status, dates, rent from `rent_terms`), balance CHF (debits − credits) with last entries, what's coming (next due entry, next `planned_maintenance` on my building/unit), link to my requests.
 - Isolation: `tenant-queries.ts` is the only way to read tenant data; all functions take `tenantRef` from session. Test: logged in as TEN-00001, request TEN-00002's lease/ticket → 404.
+- **Delivered.** The isolation evidence for checklist item 3 is **`src/auth/isolation.test.ts`** (13 cases): it signs two tenants in for real, drives the actual `(tenant)` layout gate and `/bail/[ref]` page module, and asserts each side gets a 404 on the other's lease and no foreign reference in the rendered body — plus the co-tenant case, `TEN-06002` on `BAIL-000005`. Demo accounts and the balance rule are in `openspec/changes/lane-b-auth-tenant/design.md`; the balance oracle test is `src/db/tenant-queries.test.ts`.
 
 #### Lane C — tickets + management side
 Owns: `src/tickets/**`, `src/app/(tenant)/tickets/**`, `src/app/(admin)/**`.
@@ -159,7 +160,7 @@ Settled in `phase-0-hardening` so no lane edits a shared file:
 | `.env.local` | — | present in `wt-a` only; B and C never call the ERP |
 
 Cross-lane interface points (fixed in Phase 0):
-- `getCurrentTenant(): { tenantRef, leaseRef, unitRef, userId }` (B implements, C consumes)
+- `getCurrentTenant(lookup?): Promise<{ tenantRef, leaseRef, unitRef, userId } | null>` and `getCurrentUser(lookup?): Promise<SessionUser | null>` (B implements, C consumes) — async since `main@9723d53`, because the session is a cookie and `cookies()` is awaited in this Next version
 - `runIncrementalSync(): Promise<SyncRunSummary>` (A implements, C's button calls it)
 - `login_events`, `sync_runs`, `tickets` table shapes (schema)
 
