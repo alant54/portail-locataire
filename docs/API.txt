@@ -1,0 +1,83 @@
+05 / API ERP
+Ta source de données
+Tes accès
+Ces clés sont là pour le challenge, sur des données 100 % fictives. Garde-les hors de ton dépôt : mets-les dans un fichier d'environnement local.
+
+Dévoiler les clés API
+ERP_PUBLISHABLE_KEY > (moved to .env.local)
+GEMINI_API_KEY > (moved to .env.local)
+
+Base URL
+Copier
+https://nrglxzhwdpvvbiidcvdg.supabase.co/functions/v1/erp-api
+En-têtes requis
+Copier
+apikey: <VOTRE_CLE_PUBLISHABLE>
+Authorization: Bearer <VOTRE_CLE_PUBLISHABLE>
+La clé Supabase Publishable te sera remise par ton coordinateur. L'API est strictement en lecture seule.
+
+PATRIMOINE
+
+GET /v1/dataset-releases
+GET /v1/management-companies
+GET /v1/portfolios
+GET /v1/properties
+GET /v1/buildings
+GET /v1/rental-units
+GET /v1/unit-amenities
+GET /v1/unit-statuses
+·
+properties: locality, postal_code
+·
+rental-units: unit_kind, occupancy_status, building_id
+·
+unit-statuses: locality, occupancy_status, unit_kind
+
+
+LOCATAIRES & BAUX
+
+GET /v1/parties
+GET /v1/leases
+GET /v1/lease-parties
+GET /v1/lease-objects
+GET /v1/rent-terms
+GET /v1/tenant-portal-snapshots
+·
+parties: party_kind, locale
+·
+leases: status, primary_rental_unit_id
+
+FINANCES
+
+GET /v1/tenant-account-entries
+GET /v1/payment-plans
+·
+tenant-account-entries: lease_contract_id, status, direction, entry_kind
+
+
+TECHNIQUE
+
+GET /v1/meter-points
+GET /v1/meter-readings
+GET /v1/planned-maintenance
+
+SYNCHRONISATION
+
+GET /v1/sync-events
+·
+sync-events: entity_type, operation, after
+
+Appartements vacants de Nyon
+Copier
+curl "$ERP_API/v1/unit-statuses?locality=Nyon&occupancy_status=vacant&limit=20" \
+  -H "apikey: $ERP_PUBLISHABLE_KEY" \
+  -H "Authorization: Bearer $ERP_PUBLISHABLE_KEY"
+Fiche ERP d'un locataire
+Copier
+curl "$ERP_API/v1/parties/TEN-00001" \
+  -H "apikey: $ERP_PUBLISHABLE_KEY" \
+  -H "Authorization: Bearer $ERP_PUBLISHABLE_KEY"
+Toutes les collections : GET /v1/{resource} avec limit (1 à 1 000) et offset.
+Détail possible sur les ressources à référence externe : GET /v1/properties/PRP-0001.
+Contrat OpenAPI : GET /openapi.json.
+POST, PUT, PATCH et DELETE retournent 405 Method Not Allowed.

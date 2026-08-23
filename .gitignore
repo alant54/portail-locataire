@@ -1,0 +1,14 @@
+# secrets
+.env
+.env.*
+!.env.example
+# local data
+data/*.db
+data/*.db-*
+# node / next
+node_modules/
+.next/
+out/
+*.log
+# os / editor
+.DS_Store

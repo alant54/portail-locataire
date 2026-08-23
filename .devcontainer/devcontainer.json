@@ -1,0 +1,38 @@
+{
+  "name": "openspec-custom",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "latest"
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+    "source=github-ssh-${devcontainerId},target=/home/vscode/.ssh,type=volume",
+    "source=devcontainer-bash-history-${devcontainerId},target=/commandhistory,type=volume"
+  ],
+  "containerEnv": {
+    "HISTFILE": "/commandhistory/.bash_history",
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "remoteEnv": {
+    "TERM": "xterm-256color"
+  },
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+} 

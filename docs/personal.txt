@@ -1,0 +1,9 @@
+devcontainer up --workspace-folder .
+
+
+
+Create devcontainer
+OpenSpec
+Gather information
+Claude.md
+Model Usage

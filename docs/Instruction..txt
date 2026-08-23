@@ -1,0 +1,197 @@
+REF: FD_CHALLENGE
+Product Engineer IA
+Portail locataire
+Tu as un accès en lecture seule à un ERP de gérance immobilière rempli de données fictives : immeubles, appartements, baux, locataires, loyers, compteurs, maintenances.
+
+À partir de là, construis un portail où un locataire connecté comprend sa situation et peut faire au moins une chose utile. On ne cherche pas un produit fini : on regarde ce que tu choisis de traiter, et ce que tu assumes de laisser tomber.
+
+Pas de chrono, pas de deadline à la minute. Quand tu as terminé, tu déposes un lien vers ton rapport en bas de cette page.
+
+01 / Le défi
+Trois pièces, un produit
+01 / Source
+L'ERP, en lecture seule
+Tu interroges une API HTTP. Tu n'y écris jamais rien. Tout ce que ton produit crée vit dans ta propre base.
+
+02 / Produit
+Le portail du locataire
+Il se connecte, il voit son logement, son bail, ce qu'il doit, ce qui arrive. Et il peut agir : ouvrir ou suivre une demande.
+
+03 / Pilotage
+Le côté gérance
+Deux ou trois écrans, pas un back-office : qui s'est connecté, quelles demandes sont arrivées, où en est la synchro.
+
+02 / En démo
+Ce qu'on regarde
+01
+Un locataire se connecte et comprend sa situation en dix secondes.
+02
+Il peut faire au moins une action réelle, pas cliquer sur un bouton mort.
+03
+Un locataire ne voit pas les données d'un autre. On essaiera.
+04
+Ta synchro peut être relancée sans dupliquer les données.
+05
+Tu sais dire pourquoi tu as coupé ce que tu as coupé.
+Le code doit se lancer chez nous, avec un compte de démonstration qui fonctionne.
+
+03 / Cadre
+Ce qui est cadré, ce qui est libre
+Temps
+Environ 4 h, on ne chronomètre pas
+Où
+Sur ta machine, en local
+Stack
+Celle que tu maîtrises, SQLite suffit
+Agents
+Claude Code ou Codex, sans complexe
+Licence
+Remboursée jusqu'à 100 CHF sur quittance
+Rendu
+Un rapport (lien ou fichier) + de quoi lancer le projet
+Quatre heures, c'est le budget que nous visons, pas une épreuve de vitesse. Mieux vaut une chose finie que trois choses commencées.
+
+04 / Périmètre
+Qui écrit quoi
+Lecture seule
+ERP de référence
+Patrimoine, unités
+Baux, locataires fictifs
+Écritures, compteurs
+Maintenances planifiées
+Sync
+Toutes les écritures
+Ta base locale
+Utilisateurs, sessions
+Lien avec un locataire ERP
+Tickets, commentaires, médias
+Préférences, curseur de sync
+Références à conserver
+external_ref
+tenant_ref
+lease_ref
+unit_ref
+Relations métier
+management_company -> portfolio -> property -> building -> rental_unit
+
+party <- lease_party -> lease_contract -> lease_object -> rental_unit
+lease_contract -> rent_term, tenant_account_entry, payment_plan
+rental_unit -> meter_point -> meter_reading
+unit_kind
+apartment · parking · storage
+occupancy_status
+occupied · notice_given · reserved · vacant
+lease.status
+upcoming · active · notice_given · ended · cancelled
+lease_parties.role
+primary_payer · co_tenant · guarantor
+·
+5 000 appartements, des parkings et des caves.
+·
+Des baux actifs, futurs ou terminés, avec échéances et écritures.
+·
+Montants toujours en CHF. Solde = débits moins crédits.
+·
+Données 100 % fictives : e-mails @locataires.example, NPA vaudois, rues synthétiques.
+Synchronisation recommandée
+1Importe le patrimoine : gérances, portefeuilles, propriétés, bâtiments, unités.
+2Importe les parties, baux, rôles et objets loués.
+3Importe les conditions de loyer, écritures, compteurs et maintenances.
+4Conserve le plus grand change_id traité dans ta base locale.
+5Relance avec GET /v1/sync-events?after=<curseur>&limit=500.
+6Applique les changements de façon idempotente, puis avance le curseur.
+operation vaut upsert ou delete. Un delete se traite localement, sans jamais appeler l'ERP en écriture.
+
+05 / API ERP
+Ta source de données
+Tes accès
+Ces clés sont là pour le challenge, sur des données 100 % fictives. Garde-les hors de ton dépôt : mets-les dans un fichier d'environnement local.
+
+Dévoiler les clés API
+Base URL
+Copier
+https://nrglxzhwdpvvbiidcvdg.supabase.co/functions/v1/erp-api
+En-têtes requis
+Copier
+apikey: <VOTRE_CLE_PUBLISHABLE>
+Authorization: Bearer <VOTRE_CLE_PUBLISHABLE>
+La clé Supabase Publishable te sera remise par ton coordinateur. L'API est strictement en lecture seule.
+
+Patrimoine
+Locataires & baux
+Finances
+Technique
+Synchronisation
+Appartements vacants de Nyon
+Copier
+curl "$ERP_API/v1/unit-statuses?locality=Nyon&occupancy_status=vacant&limit=20" \
+  -H "apikey: $ERP_PUBLISHABLE_KEY" \
+  -H "Authorization: Bearer $ERP_PUBLISHABLE_KEY"
+Fiche ERP d'un locataire
+Copier
+curl "$ERP_API/v1/parties/TEN-00001" \
+  -H "apikey: $ERP_PUBLISHABLE_KEY" \
+  -H "Authorization: Bearer $ERP_PUBLISHABLE_KEY"
+Toutes les collections : GET /v1/{resource} avec limit (1 à 1 000) et offset.
+Détail possible sur les ressources à référence externe : GET /v1/properties/PRP-0001.
+Contrat OpenAPI : GET /openapi.json.
+POST, PUT, PATCH et DELETE retournent 405 Method Not Allowed.
+Ouvrir le contrat OpenAPI
+06 / Évaluation
+Sur quoi on te lit
+Produit
+Ce que tu traites en premier, et ce que ça règle pour le locataire.
+
+Expérience
+On comprend sans mode d'emploi et rien ne bloque en route.
+
+Données
+Isolation, synchro rejouable, modèle local qui tient debout.
+
+Réalisation
+Ça se lance chez nous. Périmètre fini plutôt que large.
+
+Explication
+Tu défends tes choix, tes coupes et ta prochaine étape.
+
+Un périmètre étroit et solide passe toujours avant un périmètre large et bancal.
+
+07 / Bonus
+Bonus - un assistant qui sert à quelque chose
+Optionnel
+Optionnel, et seulement si le reste tient. Par exemple : il répond sur le bail du locataire connecté, ou il qualifie une demande d'intervention, réclame ce qui manque, résume, fait confirmer, puis crée le ticket.
+
+·
+Clé Gemini fournie. Côté serveur uniquement, jamais dans le navigateur ni dans le dépôt.
+·
+Un modèle rapide suffit (Gemini Flash).
+·
+Il ne voit que le contexte du locataire connecté. Rien d'autre.
+08 / Ton rendu
+Ton rapport
+Le rendu, c'est un rapport : Notion, Google Doc, GitHub, PDF ou slides, comme tu veux. Soit un lien accessible sans compte chez nous, soit un fichier déposé directement ici.
+
+·
+Ce que tu as construit, et ce que ça change pour le locataire.
+·
+Comment on le lance, avec un compte de démonstration.
+·
+Tes choix de synchro et d'isolation des données.
+·
+Ce que tu n'as pas fait, et ce que tu ferais ensuite.
+0%
+Avant de rendre
+0/6 points couverts
+Ta progression est enregistrée dans ton dossier.
+
+Un locataire peut se connecter et arriver à quelque chose
+
+Une action qui écrit vraiment dans ta base
+
+Testé : impossible d'atteindre les données d'un autre locataire
+
+Deux ou trois écrans côté gérance
+
+De quoi lancer le projet et un compte de démo
+
+Ce que tu n'as pas fait, et pourquoi
