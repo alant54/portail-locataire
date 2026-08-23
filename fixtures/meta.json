@@ -1,0 +1,44 @@
+{
+ "pulled_at": "2026-08-23T14:56:22.713Z",
+ "tenants": [
+  {
+   "tenant_ref": "TEN-00170",
+   "lease_ref": "BAIL-000170",
+   "unit_ref": "APT-00170",
+   "balance_chf": 2540
+  },
+  {
+   "tenant_ref": "TEN-00005",
+   "lease_ref": "BAIL-000005",
+   "unit_ref": "APT-00005",
+   "balance_chf": 1090
+  },
+  {
+   "tenant_ref": "TEN-00340",
+   "lease_ref": "BAIL-000340",
+   "unit_ref": "APT-00340",
+   "balance_chf": 2420
+  },
+  {
+   "tenant_ref": "TEN-00010",
+   "lease_ref": "BAIL-000010",
+   "unit_ref": "APT-00010",
+   "balance_chf": 1210
+  }
+ ],
+ "collection_sizes": {
+  "tenant-portal-snapshots": 7470,
+  "planned-maintenance": 1200,
+  "rental-units": 6800,
+  "buildings": 420,
+  "properties": 140,
+  "portfolios": 18,
+  "management-companies": 3,
+  "parties": 7200,
+  "leases": 6525,
+  "lease-objects": 8325,
+  "rent-terms": 4725,
+  "payment-plans": 60,
+  "meter-points": 7500
+ }
+}

@@ -7,3 +7,8 @@ OpenSpec
 Gather information
 Claude.md
 Model Usage
+
+
+
+
+Base on what you did in this change do you need to update other changes lane a b c ?

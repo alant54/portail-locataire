@@ -1,0 +1,79 @@
+[
+ {
+  "id": "2b814497-f360-281c-5856-739757fa7a21",
+  "external_ref": "POR-005",
+  "management_company_id": "18ae4e15-0ad3-3ff3-52c2-f10e720cf2d3",
+  "name": "Portefeuille 05",
+  "region_name": "Leman fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "2f96dfd7-477b-f613-aabc-462a0880a4ed",
+  "external_ref": "POR-006",
+  "management_company_id": "b18343eb-150b-a089-6a41-3bd4498b0611",
+  "name": "Portefeuille 06",
+  "region_name": "Plateau fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "20750c29-a5e5-4530-07f0-61f33bad0329",
+  "external_ref": "POR-007",
+  "management_company_id": "edb20584-243d-2a94-4b28-e03444f5f2e1",
+  "name": "Portefeuille 07",
+  "region_name": "Jura fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "27671c9d-fcb2-a22b-0839-54539aafa79a",
+  "external_ref": "POR-010",
+  "management_company_id": "edb20584-243d-2a94-4b28-e03444f5f2e1",
+  "name": "Portefeuille 10",
+  "region_name": "Plateau fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "d1304ff5-461c-c37e-5fc5-50532b07fe38",
+  "external_ref": "POR-011",
+  "management_company_id": "18ae4e15-0ad3-3ff3-52c2-f10e720cf2d3",
+  "name": "Portefeuille 11",
+  "region_name": "Jura fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "84a0d184-c2d2-62b3-49a0-22e782cadc76",
+  "external_ref": "POR-012",
+  "management_company_id": "b18343eb-150b-a089-6a41-3bd4498b0611",
+  "name": "Portefeuille 12",
+  "region_name": "Riviera fictive",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "abc5736e-1328-7736-8e8c-5520b8d9b135",
+  "external_ref": "POR-013",
+  "management_company_id": "edb20584-243d-2a94-4b28-e03444f5f2e1",
+  "name": "Portefeuille 13",
+  "region_name": "Leman fictif",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ }
+]

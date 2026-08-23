@@ -1,0 +1,82 @@
+[
+ {
+  "id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "external_ref": "CMP-00005-electricity",
+  "rental_unit_id": "50a94ef7-2ab1-146a-ebe9-50499f69ed15",
+  "meter_kind": "electricity",
+  "unit_of_measure": "kwh",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "external_ref": "CMP-00005-water",
+  "rental_unit_id": "50a94ef7-2ab1-146a-ebe9-50499f69ed15",
+  "meter_kind": "water",
+  "unit_of_measure": "m3",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "external_ref": "CMP-00010-electricity",
+  "rental_unit_id": "aec9ae82-4a76-435f-0b80-8217d75910f3",
+  "meter_kind": "electricity",
+  "unit_of_measure": "kwh",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "external_ref": "CMP-00010-water",
+  "rental_unit_id": "aec9ae82-4a76-435f-0b80-8217d75910f3",
+  "meter_kind": "water",
+  "unit_of_measure": "m3",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "external_ref": "CMP-00170-electricity",
+  "rental_unit_id": "4008ea69-4d09-82fb-2696-b9f324807226",
+  "meter_kind": "electricity",
+  "unit_of_measure": "kwh",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "external_ref": "CMP-00170-water",
+  "rental_unit_id": "4008ea69-4d09-82fb-2696-b9f324807226",
+  "meter_kind": "water",
+  "unit_of_measure": "m3",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "external_ref": "CMP-00340-electricity",
+  "rental_unit_id": "71561159-48ee-7299-dcac-f5305cc3ccf1",
+  "meter_kind": "electricity",
+  "unit_of_measure": "kwh",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "external_ref": "CMP-00340-water",
+  "rental_unit_id": "71561159-48ee-7299-dcac-f5305cc3ccf1",
+  "meter_kind": "water",
+  "unit_of_measure": "m3",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ }
+]

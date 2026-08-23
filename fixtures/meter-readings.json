@@ -1,0 +1,770 @@
+[
+ {
+  "id": "e245a4b3-9f9f-1bf4-3ddd-c9c54ffbd67b",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-07-01",
+  "value": 224,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "a2d243ad-8172-434d-3ee3-323038101409",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-08-01",
+  "value": 241,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "2993ba88-bbf8-f9fa-f61f-b95c86285537",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-09-01",
+  "value": 258,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ba0d2953-9afa-e142-698b-f9135727b733",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-10-01",
+  "value": 275,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "98328d35-13ee-2975-a448-62f8086fbdd7",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-11-01",
+  "value": 292,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "5c9114a0-05d8-2908-6d3e-5e060da39948",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2025-12-01",
+  "value": 309,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "05015b02-71e6-fba7-8ccc-6589b44da924",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-01-01",
+  "value": 122,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "5d3a7a97-aaa4-3df2-1cb9-cf2e0f300006",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-02-01",
+  "value": 139,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "aa2db147-f67a-d18d-10ae-0ea3c993a10f",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-03-01",
+  "value": 156,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "47f823c9-6917-5b7b-a746-a887f2017d35",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-04-01",
+  "value": 173,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "abd48c1d-e479-e303-0224-791a0c284ca2",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-05-01",
+  "value": 190,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "8bfb963e-9bc7-7ea8-4d3f-ccf5925ccb68",
+  "meter_point_id": "d5772803-cb2c-f08e-56a9-ad222ca045f4",
+  "reading_on": "2026-06-01",
+  "value": 207,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "c6b93283-15c2-a0e8-a7dd-5e6bc535a28d",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-07-01",
+  "value": 224,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "3608ba4c-8f51-e1e4-b9eb-34a016117314",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-08-01",
+  "value": 241,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "6ca00546-ee0c-434e-d4ec-7696aefe026b",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-09-01",
+  "value": 258,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "e688f2ac-b985-e129-2840-87fe9772c978",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-10-01",
+  "value": 275,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ed46906a-7e84-2b14-1e08-16b010a1aaa8",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-11-01",
+  "value": 292,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "229b3ec3-a43d-367f-e05d-6a44546ec734",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2025-12-01",
+  "value": 309,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "7e151f0f-4d55-f11c-ec96-9b86acc22901",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-01-01",
+  "value": 122,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "8e7251ed-57ea-9a01-33cd-808df33f6621",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-02-01",
+  "value": 139,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "2519c561-f143-5d87-701f-5932c02580bb",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-03-01",
+  "value": 156,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "3c03c10d-8a64-9c68-e86e-42825c508005",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-04-01",
+  "value": 173,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "9837b2c9-2983-db0b-b3fc-64bd29dc84ed",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-05-01",
+  "value": 190,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "4ac6605b-be31-aca3-a583-c359c2408e0c",
+  "meter_point_id": "2cb0ebad-031f-faac-bbdc-5f96c8a2176c",
+  "reading_on": "2026-06-01",
+  "value": 207,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "1e9f31b9-b39e-f2b2-7aa0-60aac7e58615",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-07-01",
+  "value": 229,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "aff4416d-621e-25a1-6c05-e9939fd541b0",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-08-01",
+  "value": 246,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "e7baabf2-bc35-30c5-9e7f-753e336cdeb4",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-09-01",
+  "value": 263,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "7987a91e-695e-edd4-0cad-64aad4d9d73b",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-10-01",
+  "value": 280,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "8ae7d09b-70ce-a727-2575-17bcd7aef883",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-11-01",
+  "value": 297,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "4630d6b1-dc2d-53c7-4bec-199597bbf2c2",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2025-12-01",
+  "value": 314,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "dff44a11-ca55-e7ce-7c4d-057682c05d80",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-01-01",
+  "value": 127,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "cb3d98d6-7b9c-40e6-c620-b566dd26a7e5",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-02-01",
+  "value": 144,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "fa775ce3-ddc8-b451-3b86-ab4c9002250b",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-03-01",
+  "value": 161,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "724c3c46-e423-d610-2bd1-fe4a90967987",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-04-01",
+  "value": 178,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "41b443a1-5dde-8d3f-f506-f0e959a2c0a6",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-05-01",
+  "value": 195,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "37e48f3a-697b-0026-f804-0c2c6f51b238",
+  "meter_point_id": "e239c7af-f951-3319-6736-62eed1c9024f",
+  "reading_on": "2026-06-01",
+  "value": 212,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ef87a037-a2b3-98b7-5031-146d8b31ba7e",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-07-01",
+  "value": 229,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "c8576ddb-5465-6cb4-2568-b2ab696d7a36",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-08-01",
+  "value": 246,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "3129ffcc-7b6d-2748-c6cf-4fcb34c3e1ea",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-09-01",
+  "value": 263,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "91256956-6b95-8117-9a61-77b947256bb9",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-10-01",
+  "value": 280,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "186c2bd8-35ae-2093-e166-78dc8ac5e353",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-11-01",
+  "value": 297,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "211637ad-b1f4-4a7f-deb5-8576c3608b29",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2025-12-01",
+  "value": 314,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ffd433ff-6795-41e7-a767-7a1eb5092a03",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-01-01",
+  "value": 127,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "510b511d-1cca-9608-9b24-7b3e4f6fe7f4",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-02-01",
+  "value": 144,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "c40faebb-5125-ed2e-dd80-67a7a12061e5",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-03-01",
+  "value": 161,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "f679c122-e652-cf3b-f771-30fee690e969",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-04-01",
+  "value": 178,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "b42444e0-59ae-8f96-b3e8-c417a9c25df5",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-05-01",
+  "value": 195,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "769cd954-bbc4-c6fd-9e67-46218917194a",
+  "meter_point_id": "5cf0f727-533c-5738-1827-4859f1363e13",
+  "reading_on": "2026-06-01",
+  "value": 212,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "fb9aaa6d-7cf8-9325-4af5-dd91488a08af",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-07-01",
+  "value": 389,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "08d2fa9f-3c1b-16ee-fbb1-dc72e10cf0e7",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-08-01",
+  "value": 406,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "48b06dad-8b67-2793-45ac-059c17bb99cd",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-09-01",
+  "value": 423,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "fdcb17ad-51d3-dc5d-f65d-e219f911cb83",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-10-01",
+  "value": 440,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "9ffaa165-30e0-acde-b744-c918fcacc237",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-11-01",
+  "value": 457,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "f810df90-2cc1-a426-4057-73a49045da6f",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2025-12-01",
+  "value": 474,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "448c585e-55a8-a065-6b15-e6571487185a",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-01-01",
+  "value": 287,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "51aab52f-8821-2750-5244-b6261ca08dfc",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-02-01",
+  "value": 304,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "a85c0690-0714-74a7-9cfa-d45cc439cba7",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-03-01",
+  "value": 321,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "847cda4a-fdaf-d3f6-c265-4e404c4c66ee",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-04-01",
+  "value": 338,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "4e554c1d-3764-e496-3de8-6e663c377903",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-05-01",
+  "value": 355,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "890cc5a4-cd9a-c938-adb8-2d7157b387a3",
+  "meter_point_id": "6fb2b837-db5e-d478-54ac-27ffb8577bed",
+  "reading_on": "2026-06-01",
+  "value": 372,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "58204bd0-cc8f-2410-1281-5f1aede50a9e",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-07-01",
+  "value": 389,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "2e3a63cf-4bad-f052-2b88-028504322841",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-08-01",
+  "value": 406,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "c0fb6015-3ed2-15e5-784f-e960a85e3aae",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-09-01",
+  "value": 423,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "0c1e7604-6bc1-4a20-106f-87458838ed69",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-10-01",
+  "value": 440,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "57631291-56ba-4107-fcb3-304d837b3d02",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-11-01",
+  "value": 457,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "7d814753-98d0-ced9-f392-bdaea7a8fb3f",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2025-12-01",
+  "value": 474,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "84e99b1f-647a-619a-70b9-fa119691a048",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-01-01",
+  "value": 287,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "e23ea9f7-4a90-8a73-00d5-cf04f911be07",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-02-01",
+  "value": 304,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "d2e9997b-5b24-a7bd-3834-a0a66504c18c",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-03-01",
+  "value": 321,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "2623ae22-d4cf-a0ac-5046-9e75ce92cd0f",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-04-01",
+  "value": 338,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "b4b8b04e-43a2-a18b-388a-c18a761d1c6f",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-05-01",
+  "value": 355,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "c9bc4811-3c31-b021-f97a-e6409ea1da18",
+  "meter_point_id": "4fc1c55a-fbad-a721-6e42-9de9be3245e7",
+  "reading_on": "2026-06-01",
+  "value": 372,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "320463b1-3103-6715-65ec-a24225c28847",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-07-01",
+  "value": 259,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "404b758a-fe32-a808-3d45-b1fb385ae50e",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-08-01",
+  "value": 276,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "9a51a46f-c610-8061-0e02-ac69f89bc7fb",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-09-01",
+  "value": 293,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "a3283da9-4f91-88fc-b65f-b03ab0e902a9",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-10-01",
+  "value": 310,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ee5fed1d-f5bf-4533-cfbb-06a0dfe2cd9f",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-11-01",
+  "value": 327,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "30b635fc-44a0-ba6d-6f61-94194a89454e",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2025-12-01",
+  "value": 344,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ef05e7a7-4b0c-cfa7-480e-5cc0b55592c8",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-01-01",
+  "value": 157,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "0b2ef2e6-38ce-3af5-c2ec-ddacf88fb802",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-02-01",
+  "value": 174,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "77a239a6-2ca7-3bf1-58cb-a2b7c699801b",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-03-01",
+  "value": 191,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "eab8613e-cbec-c190-a2da-a29dfe4f31e4",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-04-01",
+  "value": 208,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ef978d79-a80a-40b2-258a-09eb785b3c5b",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-05-01",
+  "value": 225,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ceda4665-2199-dccc-4aba-6f74d246ce2f",
+  "meter_point_id": "d9f54689-6392-006e-df5a-39199e0a7759",
+  "reading_on": "2026-06-01",
+  "value": 242,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "443629c0-69ba-cc4d-cc5d-2c66204722e6",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-07-01",
+  "value": 259,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "1b0e5e85-2f71-aa9a-5e2b-57b79cb182bd",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-08-01",
+  "value": 276,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "12f30f29-645a-42b4-50d2-a59d2b6daa39",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-09-01",
+  "value": 293,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "883093ac-0294-a5d9-ed7b-7b78249e6483",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-10-01",
+  "value": 310,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "3c1fcf3a-bf16-1688-4a88-8c7b6e20bb3b",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-11-01",
+  "value": 327,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "4c8ac98b-7942-ce8a-8973-8084da8deb4a",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2025-12-01",
+  "value": 344,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "01d24114-4dee-4d9c-399b-b067dc5c79e4",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-01-01",
+  "value": 157,
+  "reading_source": "estimated",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ba000f47-32a6-119f-d1d3-0d26b48adcb6",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-02-01",
+  "value": 174,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "681ffdc9-cc4d-1f14-39c0-04e687ed1928",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-03-01",
+  "value": 191,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "e05fc165-fe88-932a-35a0-a601b5fa97e8",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-04-01",
+  "value": 208,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "ad6599fd-a215-0bfc-3563-9568e23990a8",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-05-01",
+  "value": 225,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ },
+ {
+  "id": "059ccd67-e5e2-8ab1-a636-921bbd837ffe",
+  "meter_point_id": "95b6d1e1-6937-8ac1-7163-4733102f0c44",
+  "reading_on": "2026-06-01",
+  "value": 242,
+  "reading_source": "actual",
+  "created_at": "2026-08-11T11:49:56.061761+00:00"
+ }
+]

@@ -1,0 +1,36 @@
+:root {
+  --bg: #f6f6f4;
+  --panel: #ffffff;
+  --ink: #1c1c1a;
+  --muted: #6b6b66;
+  --line: #e3e3df;
+  --accent: #1f5c4a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+header.site {
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+header.site .inner {
+  max-width: 960px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; gap: 28px; min-height: 60px;
+}
+header.site .brand { font-weight: 650; letter-spacing: -0.01em; }
+header.site nav { display: flex; gap: 20px; }
+header.site nav a { color: var(--muted); text-decoration: none; padding: 6px 0; }
+header.site nav a:hover { color: var(--accent); }
+main.page { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { font-size: 1.5rem; letter-spacing: -0.02em; margin: 0 0 4px; }
+p.lead { color: var(--muted); margin: 0 0 24px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 14px;
+}
+.card h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin: 0 0 8px; }

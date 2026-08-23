@@ -1,0 +1,98 @@
+[
+ {
+  "id": "63979fb7-32bf-5a2c-f999-ed2906e00f96",
+  "external_ref": "BLD-0005",
+  "property_id": "e389f52a-3f68-6e96-5b70-50e86f3f3f1c",
+  "label": "Batiment B",
+  "floors": 8,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "6216aa9c-b72b-bfdd-a7f0-ae609d42fbdc",
+  "external_ref": "BLD-0006",
+  "property_id": "c443c180-f9d9-a797-2de3-9718aaa3b535",
+  "label": "Batiment C",
+  "floors": 9,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "e9315f75-b63e-9111-a72b-97093cd13300",
+  "external_ref": "BLD-0010",
+  "property_id": "c005b33e-1e8f-148d-2524-6619b64d7e1f",
+  "label": "Batiment A",
+  "floors": 3,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "18976fbc-2366-daf4-7e07-93b035742b2d",
+  "external_ref": "BLD-0011",
+  "property_id": "52b8e3f6-7e1a-d65a-ebd7-3f646d11539d",
+  "label": "Batiment B",
+  "floors": 4,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "1d7a7900-f6e0-fa14-3684-e9f13093aecc",
+  "external_ref": "BLD-0170",
+  "property_id": "24f2bfd2-26c4-bd21-3e73-ad7017fa3dc6",
+  "label": "Batiment B",
+  "floors": 3,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "b8d5b6ec-8fee-370c-e460-f01041ebdf30",
+  "external_ref": "BLD-0171",
+  "property_id": "43e076bb-e7af-2e49-6a1a-0c2fb3121376",
+  "label": "Batiment C",
+  "floors": 4,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "fa0689bb-bc64-551b-3324-c94b0e49e085",
+  "external_ref": "BLD-0340",
+  "property_id": "3ae0c558-9609-9360-8a90-14498752dd8c",
+  "label": "Batiment A",
+  "floors": 3,
+  "has_lift": false,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "a1e194bd-c9e9-3f4f-fd6b-cf65d97a0e28",
+  "external_ref": "BLD-0341",
+  "property_id": "139f487e-4089-a686-10b9-25c291b09e73",
+  "label": "Batiment B",
+  "floors": 4,
+  "has_lift": true,
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ }
+]

@@ -177,9 +177,25 @@ Cross-lane interface points (fixed in Phase 0):
 Phase 0 resolves **A2** and **B2** (task 5.2). A1 is settled by Lane A (task 3.1), B1 by Lane B (task 2.3), C1 by Lane C (task 3.3).
 
 - **A1 — resolving a `sync-events` upsert.** `entity_id` is a UUID, detail endpoints want `external_ref`. Options: (a) look up `external_ref` in the local mirror and re-fetch the detail; (b) for unknown UUIDs (new rows) re-page the affected collection filtered where possible; (c) batch: group events by `entity_type`, re-pull those collections fully (simplest, idempotent, slower). Recommended: (a) with (c) as fallback for unknown ids.
-- **A2 — collection sizes.** Not measured yet (offset probe returns empty); measure in Phase 0 to decide what the demo imports fully.
+- **A2 — collection sizes.** *(resolved 2026-08-23, Phase 0 task 3.2.)* Measured by paging every collection to `next_offset === null`:
+
+  | Collection | Rows | | Collection | Rows |
+  |---|---:|---|---|---:|
+  | tenant-account-entries | **161 603** | | lease-parties | 7 470 |
+  | meter-readings | **90 000** | | parties | 7 200 |
+  | sync-events | 20 665 | | rental-units / unit-statuses | 6 800 |
+  | unit-amenities | 8 884 | | leases | 6 525 |
+  | lease-objects | 8 325 | | rent-terms | 4 725 |
+  | meter-points | 7 500 | | planned-maintenance | 1 200 |
+  | tenant-portal-snapshots | 7 470 | | buildings / properties / portfolios / companies / payment-plans / dataset-releases | 420 / 140 / 18 / 3 / 60 / 1 |
+
+  ≈330 k rows overall. Paging `tenant-account-entries` alone takes ~53 s and `meter-readings` ~16 s. Consequence: the demo imports everything **except** `meter-readings`, which is capped via `SYNC_MAX_ROWS_PER_COLLECTION` (recorded as a cut) — the dashboard does not use readings, but it does need every entry to compute a balance.
+
+  Also discovered: the list endpoints accept **server-side filters** (`tenant-account-entries?lease_contract_id=`, `meter-readings?meter_point_id=`, `leases?status=`, `lease-parties?lease_contract_id=`, `planned-maintenance?building_id=`). This is what makes the fixture pull cheap, and it gives lane A a better option for A1 than re-paging a whole collection.
 - **B1 — pending entries in balance?** *(resolved in Lane B, task 2.3 — not Phase 0.)* Compare our computation with `tenant-portal-snapshots.balance_chf` for the demo tenants and adopt whichever rule matches; record the chosen status filter in `lane-b-auth-tenant/design.md`.
-- **B2 — which tenants are demo accounts?** Pick ones with an `active` lease, a non-zero balance and an upcoming maintenance so the dashboard has something to show.
+- **B2 — which tenants are demo accounts?** *(resolved 2026-08-23, Phase 0 task 3.2.)* `TEN-00170` (2540 CHF, APT-00170) · `TEN-00005` (1090 CHF, APT-00005) · `TEN-00340` (2420 CHF, APT-00340) · `TEN-00010` (1210 CHF, APT-00010). All have an active lease, a co-tenant on the lease, upcoming maintenance on their building, and entries covering `cleared` / `overdue` / `partially_paid` in both directions.
+
+  Note for B1: the ERP holds only **7 distinct balances (1090–2540 CHF), all positive** — no tenant is ever in credit, so the "non-zero balance" criterion excludes nobody and the dashboard never shows a negative balance. Worth one line in the report.
 - **C1 — does "Relancer la synchro" run inline (simple, blocks request) or as a background job?** Inline is fine for the demo.
 
 ---

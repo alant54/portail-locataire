@@ -1,0 +1,42 @@
+[
+ {
+  "lease_contract_id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "rental_unit_id": "174d2130-11d4-0ecd-5e7c-5f6784ca0cfb",
+  "object_role": "parking"
+ },
+ {
+  "lease_contract_id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "rental_unit_id": "50a94ef7-2ab1-146a-ebe9-50499f69ed15",
+  "object_role": "primary_home"
+ },
+ {
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "rental_unit_id": "71561159-48ee-7299-dcac-f5305cc3ccf1",
+  "object_role": "primary_home"
+ },
+ {
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "rental_unit_id": "cf1251fc-3041-e6da-6429-587d38512af8",
+  "object_role": "parking"
+ },
+ {
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "rental_unit_id": "4008ea69-4d09-82fb-2696-b9f324807226",
+  "object_role": "primary_home"
+ },
+ {
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "rental_unit_id": "c4053783-583b-b598-9f87-60090a6bb7d4",
+  "object_role": "parking"
+ },
+ {
+  "lease_contract_id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "rental_unit_id": "11cbc1f7-0ecb-1ee2-661f-f3f0dc61ab4a",
+  "object_role": "parking"
+ },
+ {
+  "lease_contract_id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "rental_unit_id": "aec9ae82-4a76-435f-0b80-8217d75910f3",
+  "object_role": "primary_home"
+ }
+]

@@ -1,0 +1,54 @@
+[
+ {
+  "id": "d774ae54-0071-e907-d6df-650da401be05",
+  "lease_contract_id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "effective_from": "2023-04-06",
+  "effective_to": null,
+  "base_rent_chf": 980,
+  "service_charges_chf": 110,
+  "parking_charges_chf": 0,
+  "indexed_on": "2026-01-01",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "bee9b000-b455-3375-6d26-f42410c56e5b",
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "effective_from": "2023-06-10",
+  "effective_to": null,
+  "base_rent_chf": 980,
+  "service_charges_chf": 110,
+  "parking_charges_chf": 120,
+  "indexed_on": "2026-01-01",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "8281077e-d255-c66d-ac27-f3d4b99c240c",
+  "lease_contract_id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "effective_from": "2023-07-10",
+  "effective_to": null,
+  "base_rent_chf": 980,
+  "service_charges_chf": 110,
+  "parking_charges_chf": 120,
+  "indexed_on": "2026-01-01",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "680d2f58-7065-1147-d1f8-2c4e14e1e9d6",
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "effective_from": "2024-06-14",
+  "effective_to": null,
+  "base_rent_chf": 980,
+  "service_charges_chf": 110,
+  "parking_charges_chf": 120,
+  "indexed_on": "2026-01-01",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ }
+]

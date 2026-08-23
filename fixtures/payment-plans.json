@@ -1,0 +1,24 @@
+[
+ {
+  "id": "9c68a597-94f4-0cfe-10f1-8830d7e22449",
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "status": "active",
+  "monthly_amount_chf": 180,
+  "starts_on": "2026-06-01",
+  "ends_on": "2027-05-31",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ },
+ {
+  "id": "0d9ae4ed-dc92-81c5-f3a1-e169b60a7dcd",
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "status": "active",
+  "monthly_amount_chf": 120,
+  "starts_on": "2026-06-01",
+  "ends_on": "2027-05-31",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1
+ }
+]

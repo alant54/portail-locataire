@@ -1,0 +1,42 @@
+[
+ {
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "party_id": "80e4c982-9e3c-1763-98e4-4bdeb113279c",
+  "role": "primary_payer"
+ },
+ {
+  "lease_contract_id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "party_id": "e59e3a06-21e9-c696-84de-80d7c92a1ef8",
+  "role": "co_tenant"
+ },
+ {
+  "lease_contract_id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "party_id": "7ca5cde3-04f1-a64f-5ff4-d8fd56529e4c",
+  "role": "primary_payer"
+ },
+ {
+  "lease_contract_id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "party_id": "bfcda46e-8d67-008b-ad21-0de9673f78aa",
+  "role": "co_tenant"
+ },
+ {
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "party_id": "504502a9-018b-3b8c-1627-b25ba8803fa6",
+  "role": "primary_payer"
+ },
+ {
+  "lease_contract_id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "party_id": "e1b0f6b8-24df-fadc-3387-cbd53c2db383",
+  "role": "co_tenant"
+ },
+ {
+  "lease_contract_id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "party_id": "4351042c-46d6-062d-ae0c-dac7b60ce5c0",
+  "role": "primary_payer"
+ },
+ {
+  "lease_contract_id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "party_id": "cba6e981-66ef-8222-0cfc-1d8162598b04",
+  "role": "co_tenant"
+ }
+]

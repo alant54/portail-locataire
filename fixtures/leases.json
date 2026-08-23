@@ -1,0 +1,58 @@
+[
+ {
+  "id": "580c91bd-fffd-389b-b80c-996fb19816ae",
+  "external_ref": "BAIL-000005",
+  "primary_rental_unit_id": "50a94ef7-2ab1-146a-ebe9-50499f69ed15",
+  "status": "active",
+  "starts_on": "2023-04-06",
+  "ends_on": null,
+  "notice_on": null,
+  "currency": "CHF",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "98561c2c-617a-b6c3-50d6-19561b330e5a",
+  "external_ref": "BAIL-000010",
+  "primary_rental_unit_id": "aec9ae82-4a76-435f-0b80-8217d75910f3",
+  "status": "active",
+  "starts_on": "2023-07-10",
+  "ends_on": null,
+  "notice_on": null,
+  "currency": "CHF",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "8a88efcc-95d7-0566-c4b2-1f3f09a9645d",
+  "external_ref": "BAIL-000170",
+  "primary_rental_unit_id": "4008ea69-4d09-82fb-2696-b9f324807226",
+  "status": "active",
+  "starts_on": "2024-06-14",
+  "ends_on": null,
+  "notice_on": null,
+  "currency": "CHF",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ },
+ {
+  "id": "811ace4c-4a8b-5bfa-158e-5b87478d8c14",
+  "external_ref": "BAIL-000340",
+  "primary_rental_unit_id": "71561159-48ee-7299-dcac-f5305cc3ccf1",
+  "status": "active",
+  "starts_on": "2023-06-10",
+  "ends_on": null,
+  "notice_on": null,
+  "currency": "CHF",
+  "created_at": "2026-08-11T11:49:56.061761+00:00",
+  "updated_at": "2026-08-11T11:49:56.061761+00:00",
+  "source_revision": 1,
+  "archived_at": null
+ }
+]

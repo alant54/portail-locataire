@@ -5,15 +5,35 @@ Defines the local SQLite database that mirrors the read-only ERP and stores ever
 ## ADDED Requirements
 
 ### Requirement: Mirror tables are keyed by ERP identity
-Every mirrored ERP collection (management companies, portfolios, properties, buildings, rental units, parties, leases, lease parties, lease objects, rent terms, tenant account entries, payment plans, meter points, meter readings, planned maintenance) SHALL be stored in its own table whose primary key is the ERP UUID `id`. Rows that carry an `external_ref` in the ERP SHALL keep it in a unique column. Every mirror row SHALL keep `source_revision`, `updated_at`, `archived_at` and a local `synced_at`.
+Every mirrored ERP collection (management companies, portfolios, properties, buildings, rental units, parties, leases, lease parties, lease objects, rent terms, tenant account entries, payment plans, meter points, meter readings, planned maintenance) SHALL be stored in its own table, keyed by the identity the ERP actually exposes:
+
+- Collections that expose a UUID `id` SHALL use it as the primary key.
+- The link collections `lease-parties` and `lease-objects` expose no `id`; each SHALL use a composite primary key over its foreign-key pair and role (`lease_contract_id + party_id + role`, `lease_contract_id + rental_unit_id + object_role`).
+
+Rows SHALL mirror `external_ref`, `source_revision`, `updated_at` and `archived_at` **where the ERP provides them**, keeping `external_ref` unique. Every mirror row SHALL carry a local `synced_at`. A mirror table whose collection has no `source_revision` SHALL be overwritten on every write rather than revision-compared.
 
 #### Scenario: Same ERP row written twice
-- **WHEN** a row with an already-stored `id` is written again
+- **WHEN** a row with an already-stored primary key is written again
 - **THEN** the existing row is updated in place and the table row count does not change
+
+#### Scenario: Link row written twice
+- **WHEN** the same `lease_contract_id` + `party_id` + `role` triple is written a second time
+- **THEN** the existing row is updated in place and no duplicate is created
 
 #### Scenario: Lookup by business reference
 - **WHEN** a lease is looked up by `external_ref` `BAIL-000001`
 - **THEN** exactly one row is returned
+
+### Requirement: Deletions are recorded locally on every mirror table
+Because only part of the ERP collections expose `archived_at`, every mirror table SHALL carry a portal-owned `deleted_at` column that the sync sets when it applies a delete event, whatever the collection. A row SHALL never be physically removed by the sync. Tenant-facing reads SHALL exclude rows where either `archived_at` or `deleted_at` is set.
+
+#### Scenario: Delete event on a collection without archived_at
+- **WHEN** a delete event is applied to a `tenant_account_entries` row
+- **THEN** the row still exists with `deleted_at` set and is excluded from tenant reads
+
+#### Scenario: Re-running the full import after a delete
+- **WHEN** the full import writes that same row again
+- **THEN** the row count is unchanged and the row is present exactly once
 
 ### Requirement: Portal-owned tables exist
 The database SHALL contain the portal-owned tables `users` (with `role` tenant|manager and `tenant_ref` linking to a party `external_ref`), `sessions`, `login_events`, `tickets` (with `tenant_ref`, `lease_ref`, `unit_ref`, `status` open|in_progress|closed), `ticket_comments` (with `author_kind` tenant|manager and `kind` comment|status), `sync_cursor` (single row holding the last processed `change_id`) and `sync_runs`.
