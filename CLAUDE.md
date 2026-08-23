@@ -78,7 +78,9 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 
 ## Workflow
 
-- OpenSpec drives the work: `/opsx:apply phase-0-foundation` first (serial), then lanes A/B/C in parallel, one agent per git worktree (`lane-a`, `lane-b`, `lane-c`), then delivery (README + report with cuts).
+- OpenSpec drives the work: `/opsx:apply phase-0-foundation` first (serial, **applied 2026-08-23**), then lanes A/B/C in parallel, one agent per git worktree, then delivery (README + report with cuts).
+- Worktrees live at `/home/vscode/wt-a|b|c` (`/` is not writable, so `../wt-a` fails). Each needs its own `npm install` — `node_modules` is not shared.
+- Only one `next dev` can hold port 5173: lane A `npm run dev -- -p 5174`, lane B 5173, lane C 5175.
 - Each lane owns disjoint folders (see Architecture); shared files change on `main` only.
 - Every cut feature is written down as a deliberate decision — the report is graded on it.
 

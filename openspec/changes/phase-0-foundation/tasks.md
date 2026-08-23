@@ -27,6 +27,6 @@
 
 ## 5. Hand-off
 
-- [ ] 5.1 Commit on `main`, create branches + worktrees `lane-a`, `lane-b`, `lane-c`; verify `git worktree list` shows three entries
+- [x] 5.1 Commit on `main`, create branches + worktrees `lane-a`, `lane-b`, `lane-c`; verify `git worktree list` shows three entries
 - [x] 5.2 Update `docs/PLAN.md` §7 with resolved open questions (A2 sizes, B2 chosen demo tenants); verify the file reflects the decisions
 - [x] 5.3 Record the frozen surface in `CLAUDE.md`: `src/contracts.ts`, `schema.ts`, `erp/types.ts` and the dependency list change on `main` only, and every lane test goes through `src/db/test-db.ts`; verify each lane's `tasks.md` is consistent with it

@@ -96,7 +96,7 @@ Deliverables (one OpenSpec change `phase-0-foundation`):
 5. `fixtures/` — JSON dump of 3–5 tenants end-to-end (party, lease, lease_parties, unit, building, property, entries, rent_terms, 1–2 maintenance) pulled from the ERP + a `seed:fixtures` script so B and C never wait on A.
 6. `src/auth/current-tenant.ts` — `getCurrentTenant()` **stub** returning the demo tenant (B replaces the body, C codes against the signature).
 7. Three OpenSpec changes created (A/B/C) with `tasks.md` that become the agents' briefs.
-8. Worktrees: `git worktree add ../wt-a lane-a` etc.
+8. Worktrees: `git worktree add /home/vscode/wt-a lane-a` etc. (**not** `../wt-a` — `/` is not writable in this devcontainer).
 
 ### Phase 1 — Lanes (parallel)
 
