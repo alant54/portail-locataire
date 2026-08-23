@@ -19,10 +19,13 @@ export { runIncremental, EVENT_BATCH_SIZE } from "./incremental.js";
 export { readCursor, writeCursor } from "./cursor.js";
 
 /**
- * Both optional arguments only widen the seam (see the identical signature on main):
- * the database handle keeps tests off `data/app.db`, and `client` keeps them off the
- * network. It is typed `object` rather than `ErpClient` because the other lanes have
- * no `src/erp/client.ts` to import — the cast below is where lane A knows better.
+ * Both optional arguments only widen the seam: every caller may still invoke
+ * `runIncrementalSync()` with no arguments. Tests pass their own handle so they never
+ * write to `data/app.db`, and their own ERP client so `npm test` never leaves the
+ * machine — a lane worktree has no `.env.local`, and a contract test must not depend
+ * on one. `client` is typed `object` on purpose: the real type is lane A's `ErpClient`,
+ * which does not exist in the other lanes, so the cast below is where lane A knows
+ * better than the shared signature.
  */
 export async function runIncrementalSync(
   database: MirrorDb = db,
