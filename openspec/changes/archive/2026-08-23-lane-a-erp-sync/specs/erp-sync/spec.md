@@ -5,11 +5,18 @@ Keeps the local mirror of the read-only ERP complete and up to date through a fu
 ## ADDED Requirements
 
 ### Requirement: Full import mirrors every collection without duplicates
-The system SHALL import every mirrored collection page by page until the ERP reports no next page, writing rows by ERP `id` so that re-running the import leaves row counts unchanged. The import SHALL never issue a non-GET request to the ERP.
+The system SHALL import every mirrored collection completely, writing rows by ERP primary key so that re-running the import leaves row counts unchanged. The import SHALL never issue a non-GET request to the ERP.
+
+Collections whose offset pagination the ERP serves reliably SHALL be read page by page until it reports no next page. A collection whose pages are observed to overlap or skip rows SHALL NOT be read that way: it SHALL be read through a filter that partitions it into independently stable requests, so that no row is silently missing from the mirror.
 
 #### Scenario: Import twice
 - **WHEN** the full import runs twice in a row on the same database
 - **THEN** the row count of every mirror table is identical after both runs and no row is duplicated
+
+#### Scenario: A collection whose pagination loses rows
+- **WHEN** a collection returns fewer distinct primary keys than rows fetched across a full offset walk, or two walks return different sets
+- **THEN** the full import reads that collection through a partitioning filter instead of by offset
+- **AND** a balance computed from the imported rows equals the value the ERP reports for that tenant
 
 #### Scenario: Import order respects relations
 - **WHEN** the full import runs on an empty database
