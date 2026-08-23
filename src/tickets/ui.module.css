@@ -1,0 +1,147 @@
+/*
+ * Styles for everything lane C renders — tenant requests and the management screens.
+ *
+ * A CSS Module rather than additions to `src/app/globals.css`: that file is shared by
+ * all three lanes, and locally scoped class names mean lane B and lane C can both ship
+ * a `.table` without a merge conflict or a cascade surprise.
+ */
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 550;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button:hover { filter: brightness(1.08); }
+.button:disabled { opacity: 0.6; cursor: default; }
+
+.buttonQuiet {
+  composes: button;
+  background: transparent;
+  color: var(--accent);
+}
+
+.tableWrap { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+.table th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 0 12px 8px 0;
+  white-space: nowrap;
+}
+.table td {
+  padding: 10px 12px 10px 0;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+.table td a { color: var(--accent); text-decoration: none; font-weight: 550; }
+.table td a:hover { text-decoration: underline; }
+
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.empty { color: var(--muted); margin: 4px 0 0; }
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.open { border-color: #b98a1e; color: #8a6412; background: #fdf6e4; }
+.in_progress { border-color: #2f6fb0; color: #24578a; background: #eaf2fa; }
+.closed { border-color: var(--line); color: var(--muted); background: var(--bg); }
+.ok { border-color: #2f7d5b; color: #1f5c4a; background: #eaf5f0; }
+.failed { border-color: #b04a3a; color: #8a3628; background: #fbeeeb; }
+.running { border-color: var(--line); color: var(--muted); background: var(--bg); }
+
+.field { display: block; margin-bottom: 14px; }
+.field > span {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.input,
+.select,
+.textarea {
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+.textarea { min-height: 120px; resize: vertical; }
+.input:focus, .select:focus, .textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.error { color: #8a3628; font-size: 0.86rem; margin: 5px 0 0; }
+.notice { color: var(--muted); font-size: 0.88rem; margin: 10px 0 0; }
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.entry { border-top: 1px solid var(--line); padding: 12px 0; }
+.entry:first-child { border-top: 0; padding-top: 0; }
+.entryHead {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.author { font-weight: 600; color: var(--ink); }
+.entryBody { margin: 0; white-space: pre-wrap; }
+.statusEntry { color: var(--muted); font-style: italic; }
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--muted);
+  background: var(--panel);
+}
+.filterActive { composes: filter; border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+.inline { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.stat { display: flex; gap: 28px; flex-wrap: wrap; }
+.statItem { min-width: 120px; }
+.statLabel {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.statValue { font-size: 1.35rem; font-weight: 600; font-variant-numeric: tabular-nums; }
