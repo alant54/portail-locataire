@@ -18,8 +18,8 @@ let h: TestDb;
 beforeAll(async () => { h = await createTestDb(); });
 afterAll(() => h.close());
 
-test("getCurrentTenant() returns every field of CurrentTenant", () => {
-  const tenant = getCurrentTenant();
+test("getCurrentTenant() returns every field of CurrentTenant", async () => {
+  const tenant = await getCurrentTenant();
   expect(tenant).not.toBeNull();
   for (const field of CURRENT_TENANT_FIELDS) {
     expect(Object.keys(tenant!), `missing ${field}`).toContain(field);
@@ -30,8 +30,8 @@ test("getCurrentTenant() returns every field of CurrentTenant", () => {
   expect(tenant!.unitRef).toMatch(/^APT-/);
 });
 
-test("getCurrentUser() returns every field of SessionUser", () => {
-  const user = getCurrentUser();
+test("getCurrentUser() returns every field of SessionUser", async () => {
+  const user = await getCurrentUser();
   expect(user).not.toBeNull();
   for (const field of SESSION_USER_FIELDS) {
     expect(Object.keys(user!), `missing ${field}`).toContain(field);
@@ -45,16 +45,16 @@ test("getCurrentUser() returns every field of SessionUser", () => {
  * The role seam only earns its keep if it can also say "not a manager" and
  * "nobody" — the two answers lane C's 404 gate is built on.
  */
-test("getCurrentUser() can return a tenant and an absent session", () => {
+test("getCurrentUser() can return a tenant and an absent session", async () => {
   const previous = process.env.PORTAL_STUB_ROLE;
   try {
     process.env.PORTAL_STUB_ROLE = "tenant";
-    const tenant = getCurrentUser();
+    const tenant = await getCurrentUser();
     expect(tenant?.role).toBe("tenant");
     expect(tenant?.tenantRef).toMatch(/^TEN-/);
 
     process.env.PORTAL_STUB_ROLE = "anonymous";
-    expect(getCurrentUser()).toBeNull();
+    expect(await getCurrentUser()).toBeNull();
   } finally {
     if (previous === undefined) delete process.env.PORTAL_STUB_ROLE;
     else process.env.PORTAL_STUB_ROLE = previous;

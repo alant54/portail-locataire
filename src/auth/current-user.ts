@@ -1,5 +1,5 @@
 /**
- * CROSS-LANE INTERFACE — lane B replaces the body, never the signature.
+ * CROSS-LANE INTERFACE — lane B replaces the body, never the returned shape.
  *
  * The seam that answers "who is signed in, and with which role". `getCurrentTenant()`
  * cannot answer it: `CurrentTenant` carries no role, and a manager has no `tenant_ref`
@@ -11,10 +11,14 @@
  * (404 on the management area, no "Gérance" link) without lane B. Lane B swaps in the
  * session-backed implementation, which returns `null` for an anonymous, expired or
  * unknown session — and drops the env knob with it.
+ *
+ * Async for the same reason as `getCurrentTenant()`: the session is a cookie and
+ * `cookies()` is awaited in this version of Next. See that file for the decision.
  */
-import type { SessionUser } from "../contracts.js";
+import type { SessionLookup, SessionUser } from "../contracts.js";
 
-export function getCurrentUser(): SessionUser | null {
+export async function getCurrentUser(lookup: SessionLookup = {}): Promise<SessionUser | null> {
+  void lookup; // the stub has no session to read; lane B's body uses it
   if (process.env.PORTAL_STUB_ROLE === "anonymous") return null;
   if (process.env.PORTAL_STUB_ROLE === "tenant") {
     return {

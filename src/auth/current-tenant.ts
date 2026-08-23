@@ -1,5 +1,5 @@
 /**
- * CROSS-LANE INTERFACE — lane B replaces the body, never the signature.
+ * CROSS-LANE INTERFACE — lane B replaces the body, never the returned shape.
  *
  * Phase 0 stub: returns the first fixture tenant so lanes B and C can build pages before
  * authentication exists. Lane B swaps in the session-backed implementation, which returns
@@ -7,11 +7,20 @@
  *
  * The identity comes from the session and nothing else — never from a URL, query string,
  * form body or header. That rule is the whole of checklist item 3.
+ *
+ * ASYNC ON PURPOSE (decided on `main`, 2026-08-23): the session lives in a cookie and
+ * `cookies()` is awaited in this version of Next, so a synchronous seam could never read
+ * one. The field set is what `src/contracts.test.ts` freezes, and that is unchanged;
+ * callers gain one `await`. `SessionLookup` lets a caller that already holds a session id
+ * (tests, route handlers) skip the request scope entirely.
  */
-import type { CurrentTenant } from "../contracts.js";
+import type { CurrentTenant, SessionLookup } from "../contracts.js";
 import { readBalanceOracle } from "../../scripts/seed-fixtures.js";
 
-export function getCurrentTenant(): CurrentTenant | null {
+export async function getCurrentTenant(
+  lookup: SessionLookup = {},
+): Promise<CurrentTenant | null> {
+  void lookup; // the stub has no session to read; lane B's body uses it
   const [first] = readBalanceOracle();
   if (!first) return null;
   return {
