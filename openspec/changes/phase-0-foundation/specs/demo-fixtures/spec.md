@@ -19,5 +19,16 @@ The fixtures SHALL contain, for at least three tenants with an active lease, eve
 For each fixture tenant the `tenant-portal-snapshots` record SHALL be stored alongside, so the computed balance can be compared to the ERP's `balance_chf`.
 
 #### Scenario: Oracle available
-- **WHEN** a test reads the fixtures for tenant `TEN-00001`
+- **WHEN** a test reads the fixtures for any seeded tenant (e.g. `TEN-00005`)
 - **THEN** a snapshot with `balance_chf` is present for that tenant
+
+### Requirement: Seeding refuses an unprepared database
+The fixtures seed command SHALL verify the schema is present before writing anything. When the database has not been migrated it SHALL fail with a single actionable message naming the command to run, SHALL leave no partial data behind, and SHALL exit non-zero so that a chained setup aborts rather than continuing.
+
+#### Scenario: Seeding a database that was never migrated
+- **WHEN** the fixtures seed command runs against a database file with no schema
+- **THEN** it prints one message naming the migration command, writes nothing, and exits non-zero
+
+#### Scenario: Setup chain aborts
+- **WHEN** the seed step fails inside the setup chain
+- **THEN** no later step of the chain runs

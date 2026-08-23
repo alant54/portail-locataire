@@ -1,11 +1,12 @@
 ## 1. Client & registry
 
+- [ ] 1.0 Write `scripts/sync.ts`, the CLI entry point `npm run sync` and `npm run sync:full` already point at (both are pre-declared in `package.json`; `--full` selects the full import). It dispatches to `full-import.ts` / `incremental.ts` and prints the run summary; verify `npm run sync` no longer fails with "Cannot find module" and reports a summary
 - [ ] 1.1 Implement `src/erp/client.ts` (headers from env, `listAll(resource)` async generator over pages, `getOne(resource, externalRef)`, retry/backoff); verify a vitest with a mocked `fetch` walks two pages and retries once on 503
 - [ ] 1.2 Implement `src/sync/registry.ts` mapping every ERP collection to table, import rank, primary key and detail-endpoint availability; the shapes are irregular, so encode: `lease-parties`/`lease-objects` have a **composite key and no `id`**, `meter-readings` has **no `source_revision`** (always overwrite), and `unit-amenities`/`unit-statuses`/`dataset-releases`/`tenant-portal-snapshots` are **not mirrored**. Verify a test asserts the mapping is a bijection with the 15 mirror tables in the schema *and* that the four non-mirrored collections are absent
 
 ## 2. Full import
 
-- [ ] 2.1 Implement `src/sync/full-import.ts` iterating the registry in rank order through `upsert.ts`, with `--only` and a per-collection row cap from env (`SYNC_MAX_ROWS_PER_COLLECTION`, add it to `.env.example`); cap **`meter-readings`** (90 k, unused by the demo) and never `tenant-account-entries` (161 k, needed in full for balances); verify `npm run sync:full` completes against the real ERP and logs per-table counts
+- [ ] 2.1 Implement `src/sync/full-import.ts` iterating the registry in rank order through `src/db/upsert.ts`, with `--only` and a per-collection row cap from env (`SYNC_MAX_ROWS_PER_COLLECTION`, already present in `.env.example`); cap **`meter-readings`** (90 k, unused by the demo) and never `tenant-account-entries` (161 k, needed in full for balances); verify `npm run sync:full` completes against the real ERP and logs per-table counts
 - [ ] 2.2 Verify idempotency: run `npm run sync:full` twice and assert identical `SELECT count(*)` per table (add this as `scripts/check-idempotent.sh`)
 
 ## 3. Incremental sync

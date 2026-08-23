@@ -2,8 +2,8 @@
 
 - [ ] 1.1 Implement password hashing (`scrypt`) and `src/auth/session.ts` (create/read/destroy session cookie backed by `sessions`); verify a vitest round-trips a session
 - [ ] 1.2 Implement `/login` page + server action, logout action, and `login_events` insert on success; verify logging in with a seeded account lands on the dashboard and a `login_events` row is created
-- [ ] 1.3 Implement `middleware.ts` + role checks in `(tenant)` and `(admin)` layouts; verify a tenant session gets 404 on `/admin` and an anonymous request is redirected to `/login`
-- [ ] 1.4 Write `scripts/seed-demo.ts` (2 tenants from fixtures — `TEN-00005` and `TEN-00170` — plus 1 manager) wired into `npm run setup`, credentials in README; verify fresh setup then login works for all three accounts
+- [ ] 1.3 Implement `middleware.ts` + the session gate in `src/app/(tenant)/layout.tsx` **only** — the manager gate on `(admin)` belongs to lane C (task 3.0), which owns that folder; verify an anonymous request to `/` or `/tickets` is redirected to `/login` and an authenticated tenant reaches the dashboard. Do not edit `src/app/(admin)/**`
+- [ ] 1.4 Replace the `scripts/seed-demo.ts` stub (2 tenants from fixtures — `TEN-00005` and `TEN-00170` — plus 1 manager), credentials in README. `npm run seed:demo` is already declared and already runs inside `npm run setup`, so **do not edit `package.json`**; verify a fresh `npm run setup` then login works for all three accounts
 
 ## 2. Tenant data layer
 

@@ -81,6 +81,9 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 - OpenSpec drives the work: `/opsx:apply phase-0-foundation` first (serial, **applied 2026-08-23**), then lanes A/B/C in parallel, one agent per git worktree, then delivery (README + report with cuts).
 - Worktrees live at `/home/vscode/wt-a|b|c` (`/` is not writable, so `../wt-a` fails). Each needs its own `npm install` — `node_modules` is not shared.
 - Only one `next dev` can hold port 5173: lane A `npm run dev -- -p 5174`, lane B 5173, lane C 5175.
+- Ownership settled in `phase-0-hardening` — nobody edits a shared file: `(tenant)/layout.tsx` is lane B's session gate, `(admin)/layout.tsx` is lane C's **manager gate** (404, not a redirect), and the frozen nav exposes exactly one edit point, `#session-slot`, which lane B fills from its own component.
+- `package.json` is frozen *including scripts*: `sync` / `sync:full` / `seed:demo` are pre-declared and point at files the lanes create (`scripts/sync.ts` → A, `scripts/seed-demo.ts` → B, a no-op stub until then). `npm run sync` failing with "Cannot find module" simply means lane A has not landed.
+- `.env.local` lives in `/home/vscode/wt-a` only — lane A is the only lane that calls the ERP.
 - Each lane owns disjoint folders (see Architecture); shared files change on `main` only.
 - Every cut feature is written down as a deliberate decision — the report is graded on it.
 

@@ -38,6 +38,8 @@ Because only part of the ERP collections expose `archived_at`, every mirror tabl
 ### Requirement: Portal-owned tables exist
 The database SHALL contain the portal-owned tables `users` (with `role` tenant|manager and `tenant_ref` linking to a party `external_ref`), `sessions`, `login_events`, `tickets` (with `tenant_ref`, `lease_ref`, `unit_ref`, `status` open|in_progress|closed), `ticket_comments` (with `author_kind` tenant|manager and `kind` comment|status), `sync_cursor` (single row holding the last processed `change_id`) and `sync_runs`.
 
+The `sync_cursor` singleton SHALL be created by the migration command itself, so the row exists before the first sync runs and the sync only ever updates it in place.
+
 #### Scenario: Fresh database is migrated
 - **WHEN** the migration command runs against an empty database file
 - **THEN** all mirror and portal-owned tables exist and the command exits 0
@@ -45,6 +47,14 @@ The database SHALL contain the portal-owned tables `users` (with `role` tenant|m
 #### Scenario: Migration is re-run
 - **WHEN** the migration command runs a second time
 - **THEN** it exits 0 without error and without data loss
+
+#### Scenario: Cursor singleton exists after migration
+- **WHEN** the migration command has run against an empty database file
+- **THEN** `sync_cursor` holds exactly one row, with the cursor at 0
+
+#### Scenario: Cursor singleton survives a re-run
+- **WHEN** the migration command runs again over a database whose cursor has advanced
+- **THEN** `sync_cursor` still holds exactly one row and its value is unchanged
 
 ### Requirement: Secrets stay out of the repository
 ERP and Gemini credentials SHALL be read from a local environment file that is ignored by git; the repository SHALL ship an example file with empty values.

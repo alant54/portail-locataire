@@ -35,3 +35,18 @@ The management screens SHALL be inaccessible to tenant and anonymous sessions.
 #### Scenario: Tenant attempts access
 - **WHEN** a tenant session requests a management screen
 - **THEN** the response is not-found or forbidden
+
+### Requirement: Management screens are reachable only by managers
+Every route under the management area SHALL be served only to a session whose user has the `manager` role. Any other caller — anonymous, expired session, or an authenticated tenant — SHALL receive a not-found response rather than a redirect or a permission error, so that the existence of the management area is not disclosed. The check SHALL be enforced for the whole area at once, not per page, so a screen added later cannot be left unguarded.
+
+#### Scenario: Tenant tries the management area
+- **WHEN** a signed-in tenant requests any management route
+- **THEN** the response is 404 and no management data appears in the body
+
+#### Scenario: Anonymous visitor tries the management area
+- **WHEN** a request with no valid session reaches any management route
+- **THEN** the response is 404
+
+#### Scenario: Manager is admitted
+- **WHEN** a session whose user has the `manager` role requests a management route
+- **THEN** the screen renders

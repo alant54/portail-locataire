@@ -10,5 +10,8 @@ node_modules/
 .next/
 out/
 *.log
+# build artifacts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
 # os / editor
 .DS_Store

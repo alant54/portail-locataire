@@ -139,11 +139,24 @@ Write the report; every cut item goes in as an explicit decision.
 
 ```
  A writes  src/erp/**  src/sync/**  scripts/sync.ts           ← disjoint
- B writes  src/auth/** src/app/(tenant)/** src/db/tenant-queries.ts
+ B writes  src/auth/** src/app/(tenant)/** src/app/(tenant)/layout.tsx
+           src/db/tenant-queries.ts  scripts/seed-demo.ts
  C writes  src/tickets/** src/app/(tenant)/tickets/** src/app/(admin)/**
- FROZEN    src/db/schema.ts, src/erp/types.ts, layout/nav, package.json deps
+           src/app/(admin)/layout.tsx          ← incl. the manager gate
+ FROZEN    src/db/schema.ts, src/erp/types.ts, src/contracts.ts,
+           src/app/layout.tsx (nav), package.json
            → changes only through the human, re-merged into all worktrees
 ```
+
+Settled in `phase-0-hardening` so no lane edits a shared file:
+
+| Surface | Owner | Rule |
+|---|---|---|
+| `src/app/(tenant)/layout.tsx` | B | session gate; anonymous → `/login` |
+| `src/app/(admin)/layout.tsx` | C | manager gate; anything but `role = manager` → 404 |
+| `src/app/layout.tsx` nav | frozen | one edit point: `#session-slot`, filled by B's own component |
+| `package.json` | frozen | `sync`, `sync:full`, `seed:demo` are **pre-declared**; lanes create the files they point at (`scripts/sync.ts` → A, `scripts/seed-demo.ts` → B, currently a no-op stub) |
+| `.env.local` | — | present in `wt-a` only; B and C never call the ERP |
 
 Cross-lane interface points (fixed in Phase 0):
 - `getCurrentTenant(): { tenantRef, leaseRef, unitRef, userId }` (B implements, C consumes)

@@ -10,6 +10,7 @@
 
 ## 3. Management pages
 
+- [ ] 3.0 Gate the whole `(admin)` group in `src/app/(admin)/layout.tsx` (lane C owns this file): resolve the session, and unless the user's `role` is `manager` return a **404, not a redirect** — a tenant should not learn that `/admin` exists. This gate lives nowhere else: lane B gates `(tenant)` only; verify an anonymous request and a signed-in tenant both get 404 on `/admin`, `/admin/logins`, `/admin/requests` and `/admin/sync`, while a manager reaches all four
 - [ ] 3.1 Build `/admin/logins` (last 50 login events + last login per account), showing failures as well as successes (`login_events.outcome`, with `email` kept for attempts on unknown accounts); verify a fresh login shows at the top and a failed attempt is visible
 - [ ] 3.2 Build `/admin/requests` (inbox, status filter, status change action, manager comment); verify the tenant detail reflects the status change
 - [ ] 3.3 Build `/admin/sync` (cursor, last 10 runs via `listRecentSyncRuns()` showing `cursor_before → cursor_after`, row counts per table excluding `deleted_at IS NOT NULL`, "Relancer la synchro" action calling `runIncrementalSync()`); verify clicking the button adds a run record and counts stay stable

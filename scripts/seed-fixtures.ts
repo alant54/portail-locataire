@@ -8,7 +8,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import type { SQLiteTable } from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
+import { getTableConfig, type SQLiteTable } from "drizzle-orm/sqlite-core";
 import { createDb } from "../src/db/client.js";
 import { upsertRows, type MirrorDb } from "../src/db/upsert.js";
 import * as schema from "../src/db/schema.js";
@@ -45,7 +46,24 @@ export function readBalanceOracle(dir = FIXTURES_DIR) {
   return readFixture<{ tenant_ref: string; balance_chf: number }>("tenant-portal-snapshots", dir);
 }
 
+/**
+ * Fail before writing anything if the schema is not there. Without this the first
+ * INSERT throws a Drizzle error carrying the whole statement, and the real cause —
+ * `no such table` — ends up buried at the bottom of a 30-line dump.
+ */
+function assertMigrated(db: MirrorDb): void {
+  const [first] = SEED_ORDER;
+  const table = getTableConfig(first[1]).name;
+  const found = db.get<{ name: string }>(
+    sql`select name from sqlite_master where type = 'table' and name = ${table}`,
+  );
+  if (!found) {
+    throw new Error(`database not migrated — run \`npm run db:migrate\` (or \`npm run setup\`)`);
+  }
+}
+
 export function seedFixtures(db: MirrorDb, dir = FIXTURES_DIR): Record<string, number> {
+  assertMigrated(db);
   const written: Record<string, number> = {};
   for (const [name, table] of SEED_ORDER) {
     const rows = readFixture(name, dir);
@@ -56,7 +74,14 @@ export function seedFixtures(db: MirrorDb, dir = FIXTURES_DIR): Record<string, n
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const { sqlite, db } = createDb();
-  const written = seedFixtures(db);
+  let written: Record<string, number>;
+  try {
+    written = seedFixtures(db);
+  } catch (error) {
+    sqlite.close();
+    console.error(`seed:fixtures — ${(error as Error).message}`);
+    process.exit(1);
+  }
   for (const [name, n] of Object.entries(written)) console.log(`  ${name.padEnd(26)} ${String(n).padStart(6)}`);
   const tenants = readBalanceOracle().map((t) => t.tenant_ref);
   sqlite.close();
