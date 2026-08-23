@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { getCurrentUser } from "../auth/current-user.js";
+import { getCurrentUser } from "../auth/current-user";
 import "./globals.css";
 
 export const metadata = {

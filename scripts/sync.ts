@@ -8,12 +8,12 @@
  *   npm run sync:full -- --entries=all          # every lease's entries (~26 min)
  *   DATABASE_URL=/tmp/x.db npm run sync:full    # never touch data/app.db in a check
  */
-import { createDb, DB_PATH } from "../src/db/client.js";
-import type { ErpResource } from "../src/erp/types.js";
-import type { EntriesScope } from "../src/sync/full-import.js";
-import { runFullImport } from "../src/sync/full-import.js";
-import { runIncremental } from "../src/sync/incremental.js";
-import { readCursor } from "../src/sync/cursor.js";
+import { createDb, DB_PATH } from "../src/db/client";
+import type { ErpResource } from "../src/erp/types";
+import type { EntriesScope } from "../src/sync/full-import";
+import { runFullImport } from "../src/sync/full-import";
+import { runIncremental } from "../src/sync/incremental";
+import { readCursor } from "../src/sync/cursor";
 
 function flag(name: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);

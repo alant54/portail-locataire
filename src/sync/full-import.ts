@@ -12,15 +12,15 @@
  */
 import fs from "node:fs";
 import { sql } from "drizzle-orm";
-import type { SyncRunSummary } from "../contracts.js";
-import { db as defaultDb } from "../db/client.js";
-import { upsertRows, type MirrorDb } from "../db/upsert.js";
-import { envInt } from "../erp/env.js";
-import { erp, PAGE_LIMIT, type ErpClient } from "../erp/client.js";
-import type { ErpResource, ErpSyncEvent } from "../erp/types.js";
-import { readCursor, writeCursor } from "./cursor.js";
-import { IMPORT_ORDER, type MirrorCollection } from "./registry.js";
-import { finishRun, startRun } from "./runs.js";
+import type { SyncRunSummary } from "../contracts";
+import { db as defaultDb } from "../db/client";
+import { upsertRows, type MirrorDb } from "../db/upsert";
+import { envInt } from "../erp/env";
+import { erp, PAGE_LIMIT, type ErpClient } from "../erp/client";
+import type { ErpResource, ErpSyncEvent } from "../erp/types";
+import { readCursor, writeCursor } from "./cursor";
+import { IMPORT_ORDER, type MirrorCollection } from "./registry";
+import { finishRun, startRun } from "./runs";
 
 /**
  * Collections the demo never reads row by row, so `SYNC_MAX_ROWS_PER_COLLECTION` may

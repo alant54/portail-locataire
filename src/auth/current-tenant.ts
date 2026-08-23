@@ -14,8 +14,8 @@
  * callers gain one `await`. `SessionLookup` lets a caller that already holds a session id
  * (tests, route handlers) skip the request scope entirely.
  */
-import type { CurrentTenant, SessionLookup } from "../contracts.js";
-import { readBalanceOracle } from "../../scripts/seed-fixtures.js";
+import type { CurrentTenant, SessionLookup } from "../contracts";
+import { readBalanceOracle } from "../../scripts/seed-fixtures";
 
 export async function getCurrentTenant(
   lookup: SessionLookup = {},

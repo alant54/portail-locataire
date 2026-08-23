@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, expect, test } from "vitest";
 import { eq, sql } from "drizzle-orm";
-import { createTestDb, type TestDb } from "./test-db.js";
-import { upsertRows, softDeleteRow } from "./upsert.js";
-import { buildings, leaseParties, meterReadings, parties } from "./schema.js";
+import { createTestDb, type TestDb } from "./test-db";
+import { upsertRows, softDeleteRow } from "./upsert";
+import { buildings, leaseParties, meterReadings, parties } from "./schema";
 
 let h: TestDb;
 beforeAll(async () => { h = await createTestDb(); });

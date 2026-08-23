@@ -100,6 +100,7 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 - `openspec validate` takes the change name positionally (`openspec validate <name> --strict`), not `--change`.
 - `pkill -f 'next dev'` **kills its own shell** (the pattern matches the pkill command line): use `pkill -f 'next[ ]dev'`.
 - Deleting or moving a page leaves stale generated types: `rm -rf .next` before trusting a `tsc` error that names a file you removed. Route groups also cannot collide with `src/app/page.tsx` — `/` lives in `(tenant)/page.tsx`.
+- **Relative imports are extensionless** (`./x`, not `./x.js`). Turbopack does not apply TypeScript's `.js` → `.ts` specifier mapping, so a `./x.js` import fails to resolve under `next dev` even though `tsc`, `vitest` and `tsx` all accept it — the app cannot load a single page. `tsc --moduleResolution bundler`, vitest and tsx all resolve extensionless specifiers, so one convention works everywhere. The lone `.js` left is the runtime string in `src/db/test-db.ts`, resolved by the test runner rather than the bundler.
 - Raw SQL bypasses Drizzle's column mappers and better-sqlite3 cannot bind a JS boolean — run values through `column.mapToDriverValue()` (see `src/db/upsert.ts`).
 - Verify secrets by grepping tracked files for the real `.env.local` **values**, not a key prefix — a prefix string matches the docs that mention it and passes vacuously.
 - `DATABASE_URL=/tmp/x.db npm run setup` exercises the scripts against a throwaway database — never test against `data/app.db`.

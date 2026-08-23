@@ -1,13 +1,13 @@
 import { expect, test } from "vitest";
 import { getTableConfig, type SQLiteTable } from "drizzle-orm/sqlite-core";
-import * as schema from "../db/schema.js";
+import * as schema from "../db/schema";
 import {
   ENTITY_TYPE_TO_RESOURCE,
   IMPORT_ORDER,
   MIRRORED,
   NOT_MIRRORED,
   collectionForEntityType,
-} from "./registry.js";
+} from "./registry";
 
 /** A mirror table is one the sync writes: it carries our two local columns. */
 const mirrorTables = (Object.values(schema) as unknown[]).filter((value): value is SQLiteTable => {

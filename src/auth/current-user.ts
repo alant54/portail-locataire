@@ -15,7 +15,7 @@
  * Async for the same reason as `getCurrentTenant()`: the session is a cookie and
  * `cookies()` is awaited in this version of Next. See that file for the decision.
  */
-import type { SessionLookup, SessionUser } from "../contracts.js";
+import type { SessionLookup, SessionUser } from "../contracts";
 
 export async function getCurrentUser(lookup: SessionLookup = {}): Promise<SessionUser | null> {
   void lookup; // the stub has no session to read; lane B's body uses it

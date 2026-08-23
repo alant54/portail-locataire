@@ -7,13 +7,13 @@
  */
 import { afterEach, beforeEach, expect, test } from "vitest";
 import { eq, sql } from "drizzle-orm";
-import type { ErpClient } from "../erp/client.js";
-import type { ErpResource, ErpSyncEvent } from "../erp/types.js";
-import { createTestDb, type TestDb } from "../db/test-db.js";
-import { upsertRows } from "../db/upsert.js";
-import { parties, rentalUnits, syncRuns } from "../db/schema.js";
-import { readCursor, writeCursor } from "./cursor.js";
-import { runIncremental } from "./incremental.js";
+import type { ErpClient } from "../erp/client";
+import type { ErpResource, ErpSyncEvent } from "../erp/types";
+import { createTestDb, type TestDb } from "../db/test-db";
+import { upsertRows } from "../db/upsert";
+import { parties, rentalUnits, syncRuns } from "../db/schema";
+import { readCursor, writeCursor } from "./cursor";
+import { runIncremental } from "./incremental";
 
 const party = (n: number, over: Record<string, unknown> = {}) => ({
   id: `00000000-0000-4000-8000-${String(n).padStart(12, "0")}`,

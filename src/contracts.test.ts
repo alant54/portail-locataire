@@ -3,16 +3,16 @@
  * If a lane drops a field from either returned shape, this fails.
  */
 import { afterAll, beforeAll, expect, test } from "vitest";
-import { createTestDb, type TestDb } from "./db/test-db.js";
+import { createTestDb, type TestDb } from "./db/test-db";
 import {
   CURRENT_TENANT_FIELDS,
   SESSION_USER_FIELDS,
   SYNC_RUN_SUMMARY_FIELDS,
-} from "./contracts.js";
-import { getCurrentTenant } from "./auth/current-tenant.js";
-import { getCurrentUser } from "./auth/current-user.js";
-import { runIncrementalSync } from "./sync/index.js";
-import { syncRuns } from "./db/schema.js";
+} from "./contracts";
+import { getCurrentTenant } from "./auth/current-tenant";
+import { getCurrentUser } from "./auth/current-user";
+import { runIncrementalSync } from "./sync/index";
+import { syncRuns } from "./db/schema";
 
 let h: TestDb;
 beforeAll(async () => { h = await createTestDb(); });

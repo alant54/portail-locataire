@@ -10,8 +10,8 @@
  * empty. Terminating on a short or empty page instead would work today and break
  * the day the ERP returns a page shorter than `limit` in the middle of a walk.
  */
-import { env } from "./env.js";
-import type { ErpPage, ErpResource, ErpResourceMap } from "./types.js";
+import { env } from "./env";
+import type { ErpPage, ErpResource, ErpResourceMap } from "./types";
 
 /** The ERP caps `limit` at 1000. */
 export const PAGE_LIMIT = 1000;

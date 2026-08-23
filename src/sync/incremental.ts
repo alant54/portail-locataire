@@ -17,14 +17,14 @@
  */
 import { sql } from "drizzle-orm";
 import { getTableConfig } from "drizzle-orm/sqlite-core";
-import type { SyncRunSummary } from "../contracts.js";
-import { db as defaultDb } from "../db/client.js";
-import { softDeleteRow, upsertRows, type MirrorDb } from "../db/upsert.js";
-import { erp, PAGE_LIMIT, type ErpClient } from "../erp/client.js";
-import type { ErpSyncEvent } from "../erp/types.js";
-import { readCursor, writeCursor } from "./cursor.js";
-import { collectionForEntityType, type MirrorCollection } from "./registry.js";
-import { finishRun, startRun } from "./runs.js";
+import type { SyncRunSummary } from "../contracts";
+import { db as defaultDb } from "../db/client";
+import { softDeleteRow, upsertRows, type MirrorDb } from "../db/upsert";
+import { erp, PAGE_LIMIT, type ErpClient } from "../erp/client";
+import type { ErpSyncEvent } from "../erp/types";
+import { readCursor, writeCursor } from "./cursor";
+import { collectionForEntityType, type MirrorCollection } from "./registry";
+import { finishRun, startRun } from "./runs";
 
 /** The ERP's own suggestion for this endpoint, and what PLAN.md specifies. */
 export const EVENT_BATCH_SIZE = 500;

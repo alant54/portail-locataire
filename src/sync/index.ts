@@ -6,17 +6,17 @@
  * `data/app.db`.
  */
 import { desc } from "drizzle-orm";
-import type { SyncRunSummary } from "../contracts.js";
-import { db } from "../db/client.js";
-import { syncRuns } from "../db/schema.js";
-import type { MirrorDb } from "../db/upsert.js";
-import type { ErpClient } from "../erp/client.js";
-import { runIncremental } from "./incremental.js";
+import type { SyncRunSummary } from "../contracts";
+import { db } from "../db/client";
+import { syncRuns } from "../db/schema";
+import type { MirrorDb } from "../db/upsert";
+import type { ErpClient } from "../erp/client";
+import { runIncremental } from "./incremental";
 
 export type { SyncRunSummary };
-export { runFullImport, latestChangeId, type FullImportResult } from "./full-import.js";
-export { runIncremental, EVENT_BATCH_SIZE } from "./incremental.js";
-export { readCursor, writeCursor } from "./cursor.js";
+export { runFullImport, latestChangeId, type FullImportResult } from "./full-import";
+export { runIncremental, EVENT_BATCH_SIZE } from "./incremental";
+export { readCursor, writeCursor } from "./cursor";
 
 /**
  * Both optional arguments only widen the seam: every caller may still invoke

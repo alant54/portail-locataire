@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, expect, test } from "vitest";
-import { createTestDb, type TestDb } from "./test-db.js";
-import { tickets } from "./schema.js";
+import { createTestDb, type TestDb } from "./test-db";
+import { tickets } from "./schema";
 
 let h: TestDb;
 beforeAll(async () => { h = await createTestDb(); });

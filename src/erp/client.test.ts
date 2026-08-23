@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { createErpClient, ErpError } from "./client.js";
+import { createErpClient, ErpError } from "./client";
 
 const page = (data: unknown[], next: number | null) =>
   new Response(JSON.stringify({ data, meta: { resource: "parties", limit: 1000, offset: 0, next_offset: next } }), {
