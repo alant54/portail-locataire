@@ -304,9 +304,14 @@ export interface ErpDatasetRelease {
 export type ErpSyncOperation = "upsert" | "delete";
 
 export interface ErpSyncEvent {
-  /** cursor value: pass the highest one seen as `?after=` */
+  /** cursor value: pass the highest one seen as `?after=` (strictly greater, ascending) */
   change_id: number;
-  /** singular snake_case, e.g. `rental_unit`, `lease`, `tenant_account_entry` */
+  /**
+   * Measured over the whole stream (20 665 events, 2026-08-23): exactly four values occur —
+   * `property`, `rental_unit`, `party`, `lease_contract`. Snake_case, but **not** the
+   * singular of the collection name: the `leases` collection emits `lease_contract`, and
+   * the other 11 mirrored collections emit nothing at all. Treat this as an allow-list.
+   */
   entity_type: string;
   /** a UUID — detail endpoints take `external_ref`, so resolve through the local mirror */
   entity_id: string;
