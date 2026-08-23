@@ -1,0 +1,8 @@
+.who { font-size: 0.85rem; color: var(--muted); }
+.link { font-size: 0.9rem; color: var(--accent); text-decoration: none; }
+.logout {
+  font: inherit; font-size: 0.85rem; cursor: pointer;
+  padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px;
+  background: #fff; color: var(--muted);
+}
+.logout:hover { color: var(--accent); border-color: var(--accent); }
