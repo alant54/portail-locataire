@@ -25,6 +25,33 @@ vi.mock("../../../tickets/guard", () => ({
   sessionIsManager: async () => session.isManager,
 }));
 
+/**
+ * The sync seam is stubbed, and that is the point: `runIncrementalSync()` with no
+ * arguments talks to the real ERP, and a checkout that has `.env.local` — the one the
+ * demo is served from — would make this test leave the machine, write to the mirror and
+ * take as long as the network does. What belongs to lane C is the mapping from summary
+ * to what the manager sees; that a run is recorded in `sync_runs` is lane A's, covered
+ * by `src/contracts.test.ts` against a fake ERP, and by the click-through in PLAN.md.
+ */
+const sync = vi.hoisted(() => ({
+  answer: null as null | (() => Promise<unknown>),
+}));
+vi.mock("../../../sync/index", () => ({
+  runIncrementalSync: async () => {
+    if (!sync.answer) throw new Error("no sync answer configured");
+    return sync.answer();
+  },
+}));
+
+const okSummary = (cursor: number) => ({
+  runId: "run-ok",
+  kind: "incremental" as const,
+  eventsApplied: 12,
+  cursorBefore: cursor,
+  cursorAfter: cursor + 12,
+  status: "ok" as const,
+});
+
 const { db } = await import("../../../db/client");
 const { syncRuns } = await import("../../../db/schema");
 const { createTicket, getForTenant } = await import("../../../tickets/service");
@@ -115,6 +142,8 @@ test("an unknown status or request is refused without touching anything", async 
 
 test("a non-manager caller is refused by the action itself, with a 404", async () => {
   const ticket = openRequest("Demande à ne pas toucher");
+  // No sync answer is configured: the gate must refuse before the seam is ever called.
+  sync.answer = null;
   session.isManager = false;
   try {
     for (const call of [
@@ -138,24 +167,33 @@ test("a non-manager caller is refused by the action itself, with a 404", async (
 });
 
 /**
- * No `.env.local` in a lane worktree, so the ERP is unreachable and this run fails — which
- * is the point: the button must record the attempt and leave the mirror exactly as it was.
- * The successful path is lane A's, covered by `src/contracts.test.ts` with a fake ERP.
+ * The manager clicks the button: a run that works says nothing, a run that fails says why,
+ * and an exception is reported rather than crashing the screen. In every case the action
+ * itself writes nothing to the mirror.
  */
-test("the relaunch button always records a run and never duplicates mirror rows", async () => {
+test("the relaunch button reports the run and never writes to the mirror itself", async () => {
   const before = countMirrorRows();
-  const runsBefore = db.select().from(syncRuns).all().length;
 
-  const state = await runSyncAction(EMPTY_MESSAGE_STATE);
+  sync.answer = async () => okSummary(20_665);
+  expect((await runSyncAction(EMPTY_MESSAGE_STATE)).error).toBeNull();
 
-  const runs = db.select().from(syncRuns).all();
-  expect(runs).toHaveLength(runsBefore + 1);
-  const run = runs.at(-1)!;
-  expect(run.kind).toBe("incremental");
-  expect(["ok", "failed"]).toContain(run.status);
-  if (run.status === "failed") {
-    expect(state.error).toMatch(/La synchronisation a échoué/);
-    expect(run.cursorAfter).toBe(run.cursorBefore);
-  }
+  sync.answer = async () => ({
+    ...okSummary(20_665),
+    cursorAfter: 20_665,
+    status: "failed" as const,
+    error: "ERP_API and ERP_PUBLISHABLE_KEY must be set (.env.local)",
+  });
+  expect((await runSyncAction(EMPTY_MESSAGE_STATE)).error).toMatch(
+    /La synchronisation a échoué : ERP_API/,
+  );
+
+  sync.answer = async () => {
+    throw new Error("fetch failed");
+  };
+  expect((await runSyncAction(EMPTY_MESSAGE_STATE)).error).toMatch(
+    /La synchronisation a échoué : fetch failed/,
+  );
+
   expect(countMirrorRows()).toEqual(before);
+  expect(db.select().from(syncRuns).all()).toHaveLength(0);
 });

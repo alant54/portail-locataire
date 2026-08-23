@@ -86,7 +86,7 @@ Never write a key into `docs/`, the repo, or the browser bundle.
 - Only one `next dev` can hold port 5173: lane A `npm run dev -- -p 5174`, lane B 5173, lane C 5175.
 - Ownership settled in `phase-0-hardening` — nobody edits a shared file: `(tenant)/layout.tsx` is lane B's session gate, `(admin)/layout.tsx` is lane C's **manager gate** (404, not a redirect), and the frozen nav exposes exactly one edit point, `#session-slot`, which lane B fills from its own component.
 - `package.json` is frozen *including scripts*: `sync` / `sync:full` / `seed:demo` are pre-declared and point at files the lanes create (`scripts/sync.ts` → A, `scripts/seed-demo.ts` → B, a no-op stub until then). `npm run sync` failing with "Cannot find module" simply means lane A has not landed.
-- `.env.local` lives in `/home/vscode/wt-a` only — lane A is the only lane that calls the ERP.
+- `.env.local` lives in `/workspace` and `/home/vscode/wt-a`, not in the wt-b/wt-c worktrees. A test that reaches the sync seam without injecting a fake client therefore *passes* in a lane worktree (the ERP is unreachable, so the run fails fast) and *calls the live ERP* on main — slow, non-hermetic, and it writes to the mirror. Inject the client, or mock the seam.
 - Each lane owns disjoint folders (see Architecture); shared files change on `main` only.
 - Every cut feature is written down as a deliberate decision — the report is graded on it.
 
