@@ -20,3 +20,6 @@ tsconfig.tsbuildinfo
 *.pem
 id_rsa*
 id_ed25519*
+# per-machine Claude Code config
+.claude/settings.local.json
+.claude/hooks/
