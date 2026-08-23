@@ -100,10 +100,11 @@ test("a status change reaches the tenant's own view, with its time", async () =>
 
   const seen = getForTenant(tenant.tenantRef, ticket.id)!;
   expect(seen.ticket.status).toBe("in_progress");
-  expect(seen.timeline).toHaveLength(1);
-  expect(seen.timeline[0]!.kind).toBe("status");
-  expect(seen.timeline[0]!.body).toBe("Ouverte → En cours");
-  expect(seen.timeline[0]!.createdAt).toBe(seen.ticket.updatedAt);
+  // The opening entry, then the change.
+  expect(seen.timeline.map((entry) => entry.kind).sort()).toEqual(["created", "status"]);
+  const change = seen.timeline.find((entry) => entry.kind === "status")!;
+  expect(change.body).toBe("Ouverte → En cours");
+  expect(change.createdAt).toBe(seen.ticket.updatedAt);
 });
 
 test("a manager reply reaches the tenant's timeline", async () => {
@@ -116,9 +117,11 @@ test("a manager reply reaches the tenant's timeline", async () => {
   expect(state.error).toBeNull();
 
   const seen = getForTenant(tenant.tenantRef, ticket.id)!;
-  expect(seen.timeline.map((entry) => [entry.authorKind, entry.body])).toEqual([
-    ["manager", "Le chauffagiste passe jeudi."],
-  ]);
+  expect(
+    seen.timeline
+      .filter((entry) => entry.kind === "comment")
+      .map((entry) => [entry.authorKind, entry.body]),
+  ).toEqual([["manager", "Le chauffagiste passe jeudi."]]);
 });
 
 test("an unknown status or request is refused without touching anything", async () => {
@@ -163,7 +166,8 @@ test("a non-manager caller is refused by the action itself, with a 404", async (
 
   const untouched = getForTenant(tenant.tenantRef, ticket.id)!;
   expect(untouched.ticket.status).toBe("open");
-  expect(untouched.timeline).toHaveLength(0);
+  // Only the opening entry: the refused action wrote nothing.
+  expect(untouched.timeline.map((entry) => entry.kind)).toEqual(["created"]);
 });
 
 /**

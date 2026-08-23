@@ -15,6 +15,7 @@ import {
   getForTenant,
   listAll,
   listForTenant,
+  listTimeline,
   setStatus,
   validateTicketInput,
 } from "./service";
@@ -58,6 +59,20 @@ test("a new request is stored open, with the session's references", () => {
   const stored = h.db.select().from(tickets).all();
   expect(stored).toHaveLength(1);
   expect(stored[0]!.title).toBe("Fuite sous l'évier");
+});
+
+test("the opening itself is the first timeline entry", () => {
+  const ticket = open(alice);
+
+  const timeline = listTimeline(ticket.id, h.db);
+  expect(timeline).toHaveLength(1);
+  expect(timeline[0]!.kind).toBe("created");
+  expect(timeline[0]!.authorKind).toBe("tenant");
+  expect(timeline[0]!.createdAt).toBe(ticket.createdAt);
+
+  // A rejected submission stores neither the ticket nor an orphan entry.
+  createTicket(alice, { ...input, title: "  " }, h.db);
+  expect(h.db.select().from(ticketComments).all()).toHaveLength(1);
 });
 
 test("a forged reference in the form body is ignored", () => {
@@ -136,7 +151,8 @@ test("a tenant comment lands on the timeline, a foreign one does not", () => {
   );
   expect(empty).toBeNull();
 
-  expect(getForTenant(alice.tenantRef, ticket.id, h.db)!.timeline).toHaveLength(1);
+  // The opening entry plus the accepted comment; the two rejected ones added nothing.
+  expect(getForTenant(alice.tenantRef, ticket.id, h.db)!.timeline).toHaveLength(2);
 });
 
 test("a status change is recorded as a timeline entry the tenant can see", () => {
@@ -147,17 +163,18 @@ test("a status change is recorded as a timeline entry the tenant can see", () =>
 
   const seen = getForTenant(alice.tenantRef, ticket.id, h.db)!;
   expect(seen.ticket.status).toBe("in_progress");
-  expect(seen.timeline).toHaveLength(1);
-  expect(seen.timeline[0]!.kind).toBe("status");
-  expect(seen.timeline[0]!.authorKind).toBe("manager");
-  expect(seen.timeline[0]!.body).toBe("Ouverte → En cours");
-  expect(seen.timeline[0]!.createdAt).toBe(seen.ticket.updatedAt);
+  expect(seen.timeline.map((entry) => entry.kind).sort()).toEqual(["created", "status"]);
+  const change = seen.timeline.find((entry) => entry.kind === "status")!;
+  expect(change.authorKind).toBe("manager");
+  expect(change.body).toBe("Ouverte → En cours");
+  expect(change.createdAt).toBe(seen.ticket.updatedAt);
 });
 
 test("a no-op status change writes nothing", () => {
   const ticket = open(alice);
   expect(setStatus(ticket.id, "open", h.db)?.status).toBe("open");
-  expect(h.db.select().from(ticketComments).all()).toHaveLength(0);
+  // Only the opening entry: a transition to the status it already has records nothing.
+  expect(h.db.select().from(ticketComments).all().map((entry) => entry.kind)).toEqual(["created"]);
   expect(setStatus("does-not-exist", "closed", h.db)).toBeNull();
 });
 

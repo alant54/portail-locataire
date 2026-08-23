@@ -384,7 +384,7 @@ export const ticketComments = sqliteTable(
       .references(() => tickets.id, { onDelete: "cascade" }),
     authorKind: text("author_kind").$type<"tenant" | "manager">().notNull(),
     /** a status change is a timeline entry too */
-    kind: text("kind").$type<"comment" | "status">().notNull().default("comment"),
+    kind: text("kind").$type<"created" | "comment" | "status">().notNull().default("comment"),
     body: text("body").notNull(),
     createdAt: text("created_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
   },

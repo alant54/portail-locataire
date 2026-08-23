@@ -12,6 +12,8 @@ import {
   CATEGORY_LABELS,
   STATUS_LABELS,
   getForTenant,
+  isTimelineEvent,
+  timelineEntryText,
   type Category,
 } from "../../../../tickets/service";
 import styles from "../../../../tickets/ui.module.css";
@@ -66,9 +68,9 @@ export default async function DemandeDetailPage({ params }: { params: Promise<{ 
                   <span className={styles.num}>{formatDateTime(entry.createdAt)}</span>
                 </div>
                 <p
-                  className={entry.kind === "status" ? styles.statusEntry : styles.entryBody}
+                  className={isTimelineEvent(entry.kind) ? styles.statusEntry : styles.entryBody}
                 >
-                  {entry.kind === "status" ? `Statut : ${entry.body}` : entry.body}
+                  {timelineEntryText(entry)}
                 </p>
               </li>
             ))}

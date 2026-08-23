@@ -35,10 +35,12 @@ export function attemptLogin(
     : null;
   const ok = user !== null && verifyPassword(password, user.passwordHash);
 
-  // Failures are recorded too, with the submitted email and no user id.
+  // Failures are recorded too. A failure on an address that owns an account is attributed
+  // to that account — that is what makes the « Comptes » failure count non-zero; an
+  // unknown email has nothing to attribute it to and stays on the event list alone.
   recordLoginEvent(
     {
-      userId: ok ? user.id : null,
+      userId: user?.id ?? null,
       email: normalised || null,
       outcome: ok ? "success" : "failure",
       userAgent: options.userAgent ?? null,

@@ -10,7 +10,7 @@ import type { ErpClient } from "../erp/client";
 import type { ErpResource } from "../erp/types";
 import { createTestDb, type TestDb } from "../db/test-db";
 import { upsertRows } from "../db/upsert";
-import { leases, meterReadings, tenantAccountEntries, users } from "../db/schema";
+import { leases, meterReadings, syncRuns, tenantAccountEntries, users } from "../db/schema";
 import { readCursor } from "./cursor";
 import { demoLeaseIds, runFullImport } from "./full-import";
 
@@ -158,6 +158,36 @@ test("re-running the import changes no row count", async () => {
   await runFullImport({ db: h.db, client, entriesScope: "all" });
 
   expect(h.db.get<{ n: number }>(sql`select count(*) as n from tenant_account_entries`)!.n).toBe(first);
+});
+
+test("an unconfigured ERP is a failed run, not a thrown exception", async () => {
+  // `npm run sync:full` from a bare clone: the client is built inside the run, so the
+  // configuration error is recorded and printed on one line instead of escaping as a
+  // stack trace. chdir as well as clearing the vars — env() falls back to `.env.local`,
+  // and the repo root has one.
+  const saved = { api: process.env.ERP_API, key: process.env.ERP_PUBLISHABLE_KEY };
+  const cwd = process.cwd();
+  process.env.ERP_API = "";
+  process.env.ERP_PUBLISHABLE_KEY = "";
+  process.chdir(h.dir);
+  try {
+    const summary = await runFullImport({ db: h.db });
+    expect(summary.status).toBe("failed");
+    expect(summary.error).toMatch(/ERP_API/);
+    expect(summary.cursorAfter).toBe(summary.cursorBefore);
+
+    const run = h.db.select().from(syncRuns).all().at(-1)!;
+    expect(run.kind).toBe("full");
+    expect(run.status).toBe("failed");
+    expect(run.error).toMatch(/ERP_API/);
+    expect(run.finishedAt).toBeTruthy();
+    // Nothing was fetched, so nothing was written.
+    expect(h.db.select().from(leases).all()).toHaveLength(0);
+  } finally {
+    process.chdir(cwd);
+    process.env.ERP_API = saved.api;
+    process.env.ERP_PUBLISHABLE_KEY = saved.key;
+  }
 });
 
 test("an unknown --only collection fails loudly", async () => {

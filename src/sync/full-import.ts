@@ -178,7 +178,6 @@ async function importCollection(
 
 export async function runFullImport(options: FullImportOptions = {}): Promise<FullImportResult> {
   const db = options.db ?? defaultDb;
-  const client = options.client ?? erp();
   const cap = options.maxRowsPerCollection ?? envInt("SYNC_MAX_ROWS_PER_COLLECTION");
 
   const selected = options.only?.length
@@ -195,6 +194,11 @@ export async function runFullImport(options: FullImportOptions = {}): Promise<Fu
   const perTable: Record<string, number> = {};
 
   try {
+    // Built inside the run, like `runIncremental` does: a missing `.env.local` is then a
+    // recorded `failed` run with the configuration error, not an exception thrown past
+    // the run record and printed as a stack trace.
+    const client = options.client ?? erp();
+
     // Read the cursor target first: events recorded during the import stay ahead of it.
     const cursorAfter = await latestChangeId(client);
 

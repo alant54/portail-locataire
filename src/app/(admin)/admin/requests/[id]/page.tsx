@@ -6,7 +6,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDateTime } from "../../../../../tickets/format";
-import { CATEGORY_LABELS, STATUS_LABELS, type Category } from "../../../../../tickets/labels";
+import {
+  CATEGORY_LABELS,
+  STATUS_LABELS,
+  isTimelineEvent,
+  timelineEntryText,
+  type Category,
+} from "../../../../../tickets/labels";
 import { getForManager } from "../../../../../tickets/service";
 import styles from "../../../../../tickets/ui.module.css";
 import { ManagerComment, StatusControl } from "./manage-forms";
@@ -62,8 +68,8 @@ export default async function DemandeGerancePage({
                   </span>
                   <span className={styles.num}>{formatDateTime(entry.createdAt)}</span>
                 </div>
-                <p className={entry.kind === "status" ? styles.statusEntry : styles.entryBody}>
-                  {entry.kind === "status" ? `Statut : ${entry.body}` : entry.body}
+                <p className={isTimelineEvent(entry.kind) ? styles.statusEntry : styles.entryBody}>
+                  {timelineEntryText(entry)}
                 </p>
               </li>
             ))}

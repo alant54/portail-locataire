@@ -20,9 +20,12 @@ export const metadata = {
  * The layout is async because both identity seams are: the session is a cookie, and
  * `cookies()` is awaited in this version of Next.
  *
- * The "Gérance" link is rendered only for a manager session: the management area
- * answers 404 to everyone else precisely so its existence is not disclosed, and a
- * link in the nav would have disclosed it anyway.
+ * The nav depends on the role. A manager gets no header links at all (the admin pages
+ * carry their own sub-navigation, and the tenant layout redirects a non-tenant to
+ * `/admin`, so tenant links would look dead to them). Everyone else gets the tenant
+ * links only: the management area answers 404 to
+ * non-managers precisely so its existence is not disclosed, and a link in the nav
+ * would have disclosed it anyway.
  */
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const isManager = (await getCurrentUser())?.role === "manager";
@@ -33,9 +36,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <div className="inner">
             <span className="brand">Portail locataire</span>
             <nav>
-              <Link href="/">Mon logement</Link>
-              <Link href="/tickets">Mes demandes</Link>
-              {isManager && <Link href="/admin">Gérance</Link>}
+              {!isManager && (
+                <>
+                  <Link href="/">Mon logement</Link>
+                  <Link href="/tickets">Mes demandes</Link>
+                </>
+              )}
             </nav>
             {/* The one sanctioned edit point: lane B's control, from lane B's own file. */}
             <div id="session-slot">

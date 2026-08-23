@@ -22,6 +22,7 @@ import {
   STATUS_LABELS,
   validateTicketInput,
   type CreateTicketInput,
+  type TimelineKind,
   type TicketStatus,
   type ValidationError,
 } from "./labels";
@@ -70,7 +71,20 @@ export function createTicket(
     createdAt: now,
     updatedAt: now,
   };
-  database.insert(tickets).values(row).run();
+  // Ticket and its first timeline entry in one transaction: a request whose history
+  // starts empty would render the "rien depuis l'ouverture" empty state on both detail
+  // pages, and the opening is an event like any other.
+  database.transaction((tx) => {
+    const handle = tx as MirrorDb;
+    handle.insert(tickets).values(row).run();
+    writeTimelineEntry(handle, {
+      ticketId: row.id,
+      authorKind: "tenant",
+      kind: "created",
+      body: "",
+      createdAt: now,
+    });
+  });
   return { ok: true, ticket: row };
 }
 
@@ -205,7 +219,7 @@ function writeTimelineEntry(
   entry: {
     ticketId: string;
     authorKind: "tenant" | "manager";
-    kind: "comment" | "status";
+    kind: TimelineKind;
     body: string;
     createdAt?: string;
   },

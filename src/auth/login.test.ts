@@ -6,7 +6,7 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
 import { desc, eq } from "drizzle-orm";
 import { createTestDb, type TestDb } from "../db/test-db";
-import { loginEvents } from "../db/schema";
+import { loginEvents, users } from "../db/schema";
 import { seedDemoAccounts, DEMO_PASSWORD } from "../../scripts/seed-demo";
 import { attemptLogin, INVALID_CREDENTIALS, landingPathFor } from "./login";
 import { readSession } from "./session";
@@ -63,6 +63,34 @@ describe("attemptLogin", () => {
     expect(unknown).toEqual(wrong);
     // ...and the attempt is still recorded, with the email that was tried.
     expect(lastEvent()?.email).toBe(LEA);
+  });
+
+  test("a failed attempt is attributed to the account when the email matches one", () => {
+    const lea = h.db.select().from(users).where(eq(users.email, LEA)).get();
+
+    // Both attempts are looked up by their own email: `at` has second resolution and the
+    // id is a UUID, so "the last row" is not a reliable way to tell two same-second
+    // events apart.
+    const eventsFor = (email: string) =>
+      h.db.select().from(loginEvents).where(eq(loginEvents.email, email)).all();
+    const before = eventsFor(LEA).length;
+
+    const wrong = attemptLogin(LEA, "wrong", { database: h.db });
+    const attributed = eventsFor(LEA).slice(before);
+    expect(attributed.length).toBe(1);
+    expect(attributed[0].outcome).toBe("failure");
+    expect(attributed[0].userId).toBe(lea!.id);
+
+    const beforeUnknown = eventsFor("nobody@example.ch").length;
+    const unknown = attemptLogin("nobody@example.ch", DEMO_PASSWORD, { database: h.db });
+    const unattributed = eventsFor("nobody@example.ch").slice(beforeUnknown);
+    expect(unattributed.length).toBe(1);
+    expect(unattributed[0].outcome).toBe("failure");
+    expect(unattributed[0].userId).toBeNull();
+
+    // Attribution is a management-side detail: the form still says the same thing.
+    expect(wrong).toEqual({ ok: false, message: INVALID_CREDENTIALS });
+    expect(unknown).toEqual(wrong);
   });
 
   test("an empty submission is a failure, not a crash", () => {

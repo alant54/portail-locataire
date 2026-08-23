@@ -1,12 +1,13 @@
 /**
  * The management reads (specs/management-screens).
  *
- * `login_events` stays empty until lane B ships authentication, so these tests write the
- * rows themselves: what has to hold is that the newest attempt comes first, that a failed
- * attempt on an address owning no account is still visible, and that the per-table counts
- * ignore soft-deleted rows.
+ * Attempts are written by hand where a fixed timestamp is what the assertion is about
+ * (ordering, the limit); the per-account failure count instead goes through the real
+ * `attemptLogin`, because that count reads `login_events.user_id` and a hand-inserted
+ * row is free to carry a user id the login path would never produce.
  */
 import { afterEach, beforeEach, expect, test } from "vitest";
+import { attemptLogin } from "../auth/login";
 import { createTestDb, type TestDb } from "../db/test-db";
 import { loginEvents, parties, users } from "../db/schema";
 import {
@@ -91,7 +92,11 @@ test("each account reports its last success, its failures, and 'never' when it a
   account("u-1", "alice@example.ch", "tenant", "TEN-00005");
   account("u-2", "gerance@example.ch", "manager");
   attempt({ id: "e-1", at: "2026-08-22T08:00:00.000Z", outcome: "success", userId: "u-1" });
-  attempt({ id: "e-2", at: "2026-08-23T08:00:00.000Z", outcome: "failure", userId: "u-1" });
+
+  // The real path, not a hand-made row: one wrong password on an existing address, one
+  // on an address owning no account. Only the first may move a counter.
+  expect(attemptLogin("alice@example.ch", "wrong", { database: h.db }).ok).toBe(false);
+  expect(attemptLogin("ghost@example.ch", "wrong", { database: h.db }).ok).toBe(false);
 
   const accounts = listAccountsWithLastLogin(h.db);
   const alice = accounts.find((row) => row.email === "alice@example.ch")!;

@@ -29,6 +29,31 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   autre: "Autre",
 };
 
+/**
+ * The kinds of timeline entry. Declared here rather than imported from `schema.ts`: this
+ * module is what client components import, and reaching into `db/` would pull the native
+ * `better-sqlite3` binding into the browser bundle.
+ */
+export type TimelineKind = "created" | "comment" | "status";
+
+/**
+ * The line a timeline entry shows. A comment is its own text; the other kinds are events
+ * whose wording belongs here, so the tenant and the management page cannot drift apart.
+ */
+export function timelineEntryText(entry: { kind: TimelineKind; body: string }): string {
+  switch (entry.kind) {
+    case "created":
+      return "Demande ouverte";
+    case "status":
+      return `Statut : ${entry.body}`;
+    default:
+      return entry.body;
+  }
+}
+
+/** Events read as annotations, a comment reads as a message. */
+export const isTimelineEvent = (kind: TimelineKind): boolean => kind !== "comment";
+
 export type CreateTicketInput = { category: string; title: string; body: string };
 export type ValidationError = { field: "category" | "title" | "body"; message: string };
 
