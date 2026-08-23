@@ -1,8 +1,8 @@
 /** `table<TAB>rows` for every mirror table, plus the cursor. Used by check-idempotent.sh. */
-import { createDb, DB_PATH } from "../src/db/client.js";
+import { createDb, DB_PATH } from "../src/db/client";
 import { getTableConfig } from "drizzle-orm/sqlite-core";
-import { IMPORT_ORDER } from "../src/sync/registry.js";
-import { readCursor } from "../src/sync/cursor.js";
+import { IMPORT_ORDER } from "../src/sync/registry";
+import { readCursor } from "../src/sync/cursor";
 
 const { sqlite, db } = createDb(process.argv[2] ?? DB_PATH);
 for (const collection of IMPORT_ORDER) {

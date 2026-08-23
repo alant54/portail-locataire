@@ -6,13 +6,13 @@
  * Uses the ERP's server-side filters so it never pages the 161k-row entries collection.
  */
 import fs from "node:fs";
-import { fetchAll } from "./erp-fetch.js";
+import { fetchAll } from "./erp-fetch";
 import type {
   ErpBuilding, ErpLease, ErpLeaseObject, ErpLeaseParty, ErpManagementCompany,
   ErpMeterPoint, ErpMeterReading, ErpParty, ErpPaymentPlan, ErpPlannedMaintenance,
   ErpPortfolio, ErpProperty, ErpRentTerm, ErpRentalUnit, ErpTenantAccountEntry,
   ErpTenantPortalSnapshot,
-} from "../src/erp/types.js";
+} from "../src/erp/types";
 
 const TENANT_TARGET = 4;
 const TODAY = new Date().toISOString().slice(0, 10);

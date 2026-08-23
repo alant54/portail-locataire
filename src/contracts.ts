@@ -1,5 +1,5 @@
 /**
- * FROZEN CONTRACT — the two seams where the parallel lanes meet.
+ * FROZEN CONTRACT — the seams where the parallel lanes meet.
  *
  * These shapes deliberately live outside the folder that implements them, so the
  * consumer never has to import from the implementer's lane. Lanes replace the bodies
@@ -30,6 +30,20 @@ export interface SyncRunSummary {
   cursorAfter: number;
   status: "ok" | "failed";
   error?: string;
+}
+
+/**
+ * Optional overrides accepted by both identity seams.
+ *
+ * Production callers pass nothing: the seam reads the session cookie itself. Tests
+ * and route handlers that already hold a session id pass it here, which is what keeps
+ * `npm test` hermetic — no request scope, and never `data/app.db`. `database` is typed
+ * `object` for the same reason lane A typed its injected ERP client that way: the real
+ * type lives in a lane's own module and the seam must not depend on it.
+ */
+export interface SessionLookup {
+  sessionId?: string;
+  database?: object;
 }
 
 /** Every field of `CurrentTenant`, for the contract test. */

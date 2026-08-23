@@ -1,7 +1,7 @@
 /** The singleton `sync_cursor` row (id = 1), created by `scripts/migrate.ts`. */
 import { eq, sql } from "drizzle-orm";
-import { syncCursor } from "../db/schema.js";
-import type { MirrorDb } from "../db/upsert.js";
+import { syncCursor } from "../db/schema";
+import type { MirrorDb } from "../db/upsert";
 
 export function readCursor(db: MirrorDb): number {
   return db.select().from(syncCursor).where(eq(syncCursor.id, 1)).get()?.lastChangeId ?? 0;

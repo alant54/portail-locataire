@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { getCurrentUser } from "../auth/current-user.js";
+import { getCurrentUser } from "../auth/current-user";
 import "./globals.css";
 
 export const metadata = {
@@ -16,12 +16,15 @@ export const metadata = {
  * scenario never requires touching the nav all three lanes render through. Any
  * other change here goes through `main` and is merged into every worktree.
  *
+ * The layout is async because both identity seams are: the session is a cookie, and
+ * `cookies()` is awaited in this version of Next.
+ *
  * The "Gérance" link is rendered only for a manager session: the management area
  * answers 404 to everyone else precisely so its existence is not disclosed, and a
  * link in the nav would have disclosed it anyway.
  */
-export default function RootLayout({ children }: { children: ReactNode }) {
-  const isManager = getCurrentUser()?.role === "manager";
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const isManager = (await getCurrentUser())?.role === "manager";
   return (
     <html lang="fr">
       <body>

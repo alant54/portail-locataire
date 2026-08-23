@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
-import * as schema from "./schema.js";
+import * as schema from "./schema";
 
 /** Default location of the local database; `DATABASE_URL` overrides it (tests, worktrees). */
 export const DB_PATH = process.env.DATABASE_URL ?? "data/app.db";

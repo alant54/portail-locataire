@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, expect, test } from "vitest";
 import { eq, inArray, sql } from "drizzle-orm";
-import { createTestDb, type TestDb } from "./test-db.js";
-import { leases, leaseParties, parties, rentalUnits, tenantAccountEntries } from "./schema.js";
-import { readBalanceOracle } from "../../scripts/seed-fixtures.js";
+import { createTestDb, type TestDb } from "./test-db";
+import { leases, leaseParties, parties, rentalUnits, tenantAccountEntries } from "./schema";
+import { readBalanceOracle } from "../../scripts/seed-fixtures";
 
 let h: TestDb;
 beforeAll(async () => { h = await createTestDb({ seed: true }); });

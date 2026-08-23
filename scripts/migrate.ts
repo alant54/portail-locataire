@@ -1,5 +1,5 @@
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
-import { createDb, DB_PATH } from "../src/db/client.js";
+import { createDb, DB_PATH } from "../src/db/client";
 
 const file = process.argv[2] ?? DB_PATH;
 const { sqlite, db } = createDb(file);

@@ -12,8 +12,8 @@
  * singular of the collection name — see ENTITY_TYPE_TO_RESOURCE below.
  */
 import type { SQLiteTable } from "drizzle-orm/sqlite-core";
-import type { ErpResource } from "../erp/types.js";
-import * as schema from "../db/schema.js";
+import type { ErpResource } from "../erp/types";
+import * as schema from "../db/schema";
 
 export interface MirrorCollection {
   /** ERP path segment, e.g. `rental-units`. */

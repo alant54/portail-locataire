@@ -10,9 +10,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
 import { getTableConfig, type SQLiteTable } from "drizzle-orm/sqlite-core";
-import { createDb } from "../src/db/client.js";
-import { upsertRows, type MirrorDb } from "../src/db/upsert.js";
-import * as schema from "../src/db/schema.js";
+import { createDb } from "../src/db/client";
+import { upsertRows, type MirrorDb } from "../src/db/upsert";
+import * as schema from "../src/db/schema";
 
 export const FIXTURES_DIR = "fixtures";
 

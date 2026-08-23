@@ -5,7 +5,7 @@
  * detail endpoints. Phase 0 only needs enough to pull fixtures once.
  */
 import fs from "node:fs";
-import type { ErpPage } from "../src/erp/types.js";
+import type { ErpPage } from "../src/erp/types";
 
 function loadEnv(): Record<string, string> {
   const out: Record<string, string> = { ...process.env } as Record<string, string>;

@@ -1,5 +1,5 @@
-import { fetchAll } from "./erp-fetch.js";
-import { ERP_RESOURCES } from "../src/erp/types.js";
+import { fetchAll } from "./erp-fetch";
+import { ERP_RESOURCES } from "../src/erp/types";
 
 const sizes: Record<string, number> = {};
 for (const r of ERP_RESOURCES) {
