@@ -17,10 +17,27 @@ Schema, `upsert.ts` helper and types come from `phase-0-foundation`. ERP facts v
 - `?after=` is strictly greater and ascending; `after=20665` returns an empty page with `next_offset: null`.
 - All 6 525 `lease_contract` ids were matched against `/v1/leases` — the collection behind that type is `leases`, **not** a collection named after it.
 
+**Offset pagination is not trustworthy on every collection** (measured the same day, one
+full walk each, comparing rows fetched to distinct primary keys):
+
+| Collection | fetched | distinct | verdict |
+|---|---|---|---|
+| `tenant-account-entries` | 161 603 | 133 455 | **lossy** — two walks return different sets |
+| `rent-terms` | 4 725 | 4 724 | **lossy** |
+| the other 13 mirrored collections | — | = fetched | exact |
+
+A single page is stable and repeatable; the sequence of pages is not, so the server's
+windows overlap and skip. The API offers no ordering parameter (`order`, `sort`,
+`order_by` are ignored), and concurrency makes it worse, not better: 8 then 16 parallel
+requests raise the total from 26 to 31 minutes. Filtering by `?lease_contract_id=`
+returns each lease's rows in one stable page and reproduces the
+`tenant-portal-snapshots` balance exactly for all four fixture tenants.
+
 ## Goals / Non-Goals
 
 **Goals:** replayable, idempotent, observable sync; CLI + callable function.
-**Non-Goals:** background scheduling, parallel fetching, syncing meter readings in full for the demo (capped, see PLAN.md §6), resolving event types the dataset never emits.
+**Non-Goals:** background scheduling, parallel fetching (measured slower against this
+ERP), syncing meter readings in full for the demo (capped, see PLAN.md §6), resolving event types the dataset never emits.
 
 ## Decisions
 
@@ -38,6 +55,17 @@ Schema, `upsert.ts` helper and types come from `phase-0-foundation`. ERP facts v
   ```
 
   A 500-event page therefore re-pages instead of issuing 500 detail GETs (~60× fewer requests), and a replay from cursor 0 costs ~21 list requests instead of 20 665 detail requests. Re-paging is also the fallback for a UUID absent from the mirror (a row created after our import). Alternative rejected: resolving unknown UUIDs through the server-side list filters (`tenant-account-entries?lease_contract_id=` and friends). Those filters are real and useful for the fixture pull, but no collection that needs them ever emits an event — it is machinery for a case this dataset cannot produce.
+
+- **`tenant-account-entries` and `rent-terms` are read per lease, never by `offset`.** The
+  measurement above makes offset paging unusable for them: an import built on it produced
+  3 750 CHF for BAIL-000170 against an oracle of 2 540, and the balance is the headline
+  number of the brief. One request per lease returns ≤35 rows, is stable, and matches the
+  oracle exactly. Because 6 525 leases cost ~26 minutes, the scope is a flag rather than a
+  constant: `--entries=demo` (default) covers the leases a portal user can actually reach
+  — the `users` table union the fixture tenants — and finishes the whole import in 18 s;
+  `--entries=all` walks every lease. Alternatives rejected: repeating the offset walk
+  until the distinct count converges (never provably complete, and still minutes), and
+  accepting the defect with a note in the report (wrong balances on the main screen).
 
 - **Batch = one ERP page (≤500 events) = one SQLite transaction**, cursor update inside the same transaction. Alternative: per-event commits — slower and allows a half-applied page.
 
@@ -57,4 +85,8 @@ Schema, `upsert.ts` helper and types come from `phase-0-foundation`. ERP facts v
 - [ERP rate limits] → backoff; full import is a one-time setup step.
 - [Unknown `entity_type` in events] → log and skip, count in `sync_runs.error`, do not block the cursor.
 - [The delete path can never be exercised against the live ERP] → the dataset holds zero `delete` events, so `softDeleteRow` and the spec's "Delete event" scenario are covered by the fake-ERP vitest only. Stated in the report as *tested, not demoed*, so nobody hunts for a delete during verification.
+- [`--entries=demo` mirrors only the portal's own leases] → every balance the portal can
+  display is exact, but a portfolio-wide total computed from the mirror would be partial.
+  `--entries=all` removes the limit at a cost of ~26 min; both are documented in
+  `docs/SYNC.md` and the scope is printed by the CLI.
 - [Only 4 of 15 mirrored collections ever appear in `sync-events`] → the other 11 stay fresh through `sync:full` alone. This is the ERP's behaviour, not a gap in the sync; noted in `docs/SYNC.md` so the demo does not promise incremental freshness for rent terms or account entries.

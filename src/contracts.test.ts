@@ -25,8 +25,22 @@ test("getCurrentTenant() returns every field of CurrentTenant", () => {
   expect(tenant!.unitRef).toMatch(/^APT-/);
 });
 
+/**
+ * A stand-in ERP with nothing new to report. Injected so this test stays hermetic:
+ * the real client needs `.env.local`, which only lane A's worktree has.
+ */
+const noEventsErp = () => ({
+  async getPage() {
+    return { data: [], meta: { resource: "sync-events", limit: 500, offset: 0, next_offset: null } };
+  },
+  async *listAll() {},
+  async getOne() {
+    return null;
+  },
+});
+
 test("runIncrementalSync() returns every field of SyncRunSummary", async () => {
-  const summary = await runIncrementalSync(h.db);
+  const summary = await runIncrementalSync(h.db, noEventsErp());
   for (const field of SYNC_RUN_SUMMARY_FIELDS) {
     expect(Object.keys(summary), `missing ${field}`).toContain(field);
   }
@@ -37,7 +51,7 @@ test("runIncrementalSync() returns every field of SyncRunSummary", async () => {
 });
 
 test("every run is recorded in sync_runs", async () => {
-  const summary = await runIncrementalSync(h.db);
+  const summary = await runIncrementalSync(h.db, noEventsErp());
   const rows = h.db.select().from(syncRuns).all();
   expect(rows.some((r) => r.id === summary.runId)).toBe(true);
 });
